@@ -9,6 +9,7 @@ Python widget relational model
     * modules
       * chappie_cookie_company.py
       * hello_world.py
+      * widget_demo.py
     * pywrm_widgets (uses external_widgets)
       * rich_text.py (top level class for ace_rich_text.py)
       * toolbar.py (top level class for dhx_toolbar.py and w2ui_toobar.py) (basically ORM like object)
@@ -45,6 +46,7 @@ Python widget relational model
   * examples
     * hello_world
     * chappie_cookie_company
+    * widget_demo
     * Dockerfile
     * EXAMPLES.md (If this doesn't render, put README.md)
   * README.md
