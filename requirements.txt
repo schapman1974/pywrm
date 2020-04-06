@@ -1,2 +1,2 @@
-starlette==0.13.2
+aiofiles==0.13.2
 fastapi==0.54.0
