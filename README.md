@@ -1,3 +1,5 @@
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/pywrm/pywrm) 
+
 # pywrm
 Python widget relational model
 
@@ -42,7 +44,7 @@ Python widget relational model
         * ace_parser_v?.py
         * dhx_parser_v?.py
         * w2ui_parser_v?.py
-        * widget_parser.py
+      * widget_parser.py
   * examples
     * hello_world
     * chappie_cookie_company
