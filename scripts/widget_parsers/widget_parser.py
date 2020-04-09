@@ -4,8 +4,37 @@ from importlib import import_module
 import os
 import sys
 
+EIGHTSPC = " " * 8
+FOURSPC = " " * 4
 
-def run_parsers(write_folder):
+def build_raw_classes(parser, repo_folder):
+    classes = parser.widget_list
+    build_folder = os.path.join(repo_folder,
+                                f"external_widgets{os.path.sep}",
+                                parser.widget_code
+                                )
+    os.makedirs(build_folder, exist_ok=True)
+    raw_file = os.path.join(build_folder,
+                            f"raw_widgets_{parser.widget_code}.py"
+                            )
+    with open(raw_file, "w") as rfile:
+        rfile.write(f'""" Auto Generated raw classes for {parser.widget_code}. """\n')
+        for widget_class in classes:
+            widget_info = parser._classes[widget_class]
+            rfile.write(f"\n\nclass {widget_class}:\n")
+            rfile.write(f"{FOURSPC}def __init__(self):\n")
+            rfile.write(f"{EIGHTSPC}pass\n")
+            for jsfunction in widget_info["functions"]:
+                rfile.write(f"\n{FOURSPC}def {jsfunction['name']}(self")
+                if jsfunction["params"]:
+                    rfile.write(", " + (", ".join(jsfunction["params"])))
+                rfile.write("):\n")
+                rfile.write(f"{EIGHTSPC}pass\n")
+            print(widget_info)
+        
+
+
+def run_parsers(repo_folder):
     folder = os.path.join(
         os.path.dirname(__file__),
          f"parsers{os.path.sep}*.py"
@@ -17,7 +46,7 @@ def run_parsers(write_folder):
         parsemod = import_module(file_only.replace(".py", ""))
         parser = parsemod.parser()
         parser.build_widget_info()
-        print(parser._classes)
+        build_raw_classes(parser, repo_folder)
 
 
 if __name__ == "__main__":
@@ -26,7 +55,7 @@ if __name__ == "__main__":
     arg_parser.add_argument(
         '--pywrm_project_path',
         help='path to pywrm project',
-        default= f"..{os.path.sep}..{os.path.sep}"
+        default= f""
     )
     args = arg_parser.parse_args()
     run_parsers(args.pywrm_project_path)

@@ -10,6 +10,7 @@ class parser:
         self.version = "6.4.2"
         self.js_zip_source = "https://dhtmlx.com/x/download/suite/suite_gpl.zip"
         self.js_source_file = "codebase/suite.js"
+        self.widget_code = "dhx"
         self.widget_list = [
             "Calendar",
             "Chart",
@@ -55,8 +56,8 @@ class parser:
                         params = jsline.split("(")[1].split(")")[0]
                         self._classes[class_entry]["functions"].append({
                             "name":function,
-                            "params": ["self"] + params.split(",") 
-                                if params else ["self"]
+                            "params": params.split(",") 
+                                if params else []
                             }
                         )
 
