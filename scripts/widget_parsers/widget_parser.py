@@ -30,9 +30,18 @@ def build_raw_classes(parser, repo_folder):
                     rfile.write(", " + (", ".join(jsfunction["params"])))
                 rfile.write("):\n")
                 rfile.write(f"{EIGHTSPC}pass\n")
-            print(widget_info)
+            for jsevent, jsevent_info in widget_info["events"].items():
+                rfile.write(f"\n{FOURSPC}def {jsevent}(self")
+                for argnum in range(0, jsevent_info["argslen"]):
+                    if argnum == 0:
+                        rfile.write(", ")
+                    rfile.write(f"arg{argnum}")
+                    if argnum < jsevent_info["argslen"]-1:
+                        rfile.write(", ")
+                rfile.write("):\n")
+                rfile.write(f'{EIGHTSPC}"""JS_ARGS: {jsevent_info["argstr"]}"""\n')
+                rfile.write(f"{EIGHTSPC}pass\n")
         
-
 
 def run_parsers(repo_folder):
     folder = os.path.join(
