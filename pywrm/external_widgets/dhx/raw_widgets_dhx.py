@@ -1,4 +1,8 @@
 """ Auto Generated raw classes for dhx. """
+from uuid import uuid4
+
+from decorators.decorators import function_wrapper
+
 
 
 class Calendar:
@@ -336,31 +340,7 @@ class Form:
     def setConfig(self, config):
         pass
 
-    def disable(self):
-        pass
-
-    def enable(self):
-        pass
-
-    def isDisabled(self):
-        pass
-
-    def clear(self):
-        pass
-
-    def getValue(self):
-        pass
-
-    def setValue(self, value):
-        pass
-
-    def validate(self):
-        pass
-
     def getWidget(self):
-        pass
-
-    def setConfig(self, config):
         pass
 
     def change(self, arg0, arg1):
@@ -454,7 +434,7 @@ class Grid:
     def edit(self, rowId,  colId,  editorType):
         pass
 
-    def scroll(self, arg0):
+    def scrollEvent(self, arg0):
         """JS_ARGS: types_1.GridEvents.scroll, [{y: e.target.scrollTop,x: e.target.scrollLeft}]);"""
         pass
 
@@ -573,7 +553,7 @@ class Grid:
 
 class Layout:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
     def toVDOM(self):
         pass
@@ -581,6 +561,7 @@ class Layout:
     def removeCell(self, id):
         pass
 
+    @function_wrapper
     def addCell(self, config,  index):
         pass
 
@@ -832,7 +813,7 @@ class Sidebar:
         """JS_ARGS: NO ARGS"""
         pass
 
-    def toggle(self, arg0):
+    def toggleEvent(self, arg0):
         """JS_ARGS: types_1.SidebarEvents.toggle, [this.config.collapsed]); // TODO: remove sute_7.0"""
         pass
 

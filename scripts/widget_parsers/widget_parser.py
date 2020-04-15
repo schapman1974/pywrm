@@ -64,7 +64,7 @@ if __name__ == "__main__":
     arg_parser.add_argument(
         '--pywrm_project_path',
         help='path to pywrm project',
-        default= f""
+        default= f"pywrm/"
     )
     args = arg_parser.parse_args()
     run_parsers(args.pywrm_project_path)
