@@ -19,12 +19,15 @@ def build_raw_classes(parser, repo_folder):
                             )
     with open(raw_file, "w") as rfile:
         rfile.write(f'""" Auto Generated raw classes for {parser.widget_code}. """\n')
+        rfile.write("from uuid import uuid4\n\n")
+        rfile.write("from decorators.decorators import function_wrapper\n")
         for widget_class in classes:
             widget_info = parser._classes[widget_class]
             rfile.write(f"\n\nclass {widget_class}:\n")
             rfile.write(f"{FOURSPC}def __init__(self):\n")
-            rfile.write(f"{EIGHTSPC}pass\n")
+            rfile.write(f"{EIGHTSPC}self._unique_id = str(uuid4())\n")
             for jsfunction in widget_info["functions"]:
+                rfile.write(f"\n{FOURSPC}@function_wrapper")
                 rfile.write(f"\n{FOURSPC}def {jsfunction['name']}(self")
                 if jsfunction["params"]:
                     rfile.write(", " + (", ".join(jsfunction["params"])))

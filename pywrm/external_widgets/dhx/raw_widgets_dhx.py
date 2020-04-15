@@ -4,29 +4,35 @@ from uuid import uuid4
 from decorators.decorators import function_wrapper
 
 
-
 class Calendar:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def setValue(self, value):
         pass
 
+    @function_wrapper
     def getValue(self, asDateObject):
         pass
 
+    @function_wrapper
     def getCurrentMode(self):
         pass
 
+    @function_wrapper
     def showDate(self, date,  mode):
         pass
 
+    @function_wrapper
     def destructor(self):
         pass
 
+    @function_wrapper
     def clear(self):
         pass
 
+    @function_wrapper
     def link(self, targetCalendar):
         pass
 
@@ -65,17 +71,21 @@ class Calendar:
 
 class Chart:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def getSeries(self, key):
         pass
 
+    @function_wrapper
     def eachSeries(self, handler):
         pass
 
+    @function_wrapper
     def destructor(self):
         pass
 
+    @function_wrapper
     def setConfig(self, config):
         pass
 
@@ -102,41 +112,53 @@ class Chart:
 
 class Colorpicker:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def destructor(self):
         pass
 
+    @function_wrapper
     def clear(self):
         pass
 
+    @function_wrapper
     def setValue(self, value):
         pass
 
+    @function_wrapper
     def setFocus(self, value):
         pass
 
+    @function_wrapper
     def getValue(self):
         pass
 
+    @function_wrapper
     def getCustomColors(self):
         pass
 
+    @function_wrapper
     def setCustomColors(self, customColors):
         pass
 
+    @function_wrapper
     def setCurrentMode(self, mode):
         pass
 
+    @function_wrapper
     def getCurrentMode(self):
         pass
 
+    @function_wrapper
     def getView(self):
         pass
 
+    @function_wrapper
     def setView(self, mode):
         pass
 
+    @function_wrapper
     def focusValue(self, value):
         pass
 
@@ -171,32 +193,41 @@ class Colorpicker:
 
 class Combobox:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def focus(self):
         pass
 
+    @function_wrapper
     def enable(self):
         pass
 
+    @function_wrapper
     def disable(self):
         pass
 
+    @function_wrapper
     def isDisabled(self):
         pass
 
+    @function_wrapper
     def clear(self):
         pass
 
+    @function_wrapper
     def getValue(self, asArray):
         pass
 
+    @function_wrapper
     def setValue(self, ids):
         pass
 
+    @function_wrapper
     def destructor(self):
         pass
 
+    @function_wrapper
     def setState(self, state):
         pass
 
@@ -227,32 +258,41 @@ class Combobox:
 
 class DataView:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def editItem(self, id):
         pass
 
+    @function_wrapper
     def getFocusItem(self):
         pass
 
+    @function_wrapper
     def setItemInRow(self, amount):
         pass
 
+    @function_wrapper
     def setFocus(self, id):
         pass
 
+    @function_wrapper
     def getFocus(self):
         pass
 
+    @function_wrapper
     def destructor(self):
         pass
 
+    @function_wrapper
     def getFocusIndex(self):
         pass
 
+    @function_wrapper
     def setFocusIndex(self, index):
         pass
 
+    @function_wrapper
     def edit(self, id):
         pass
 
@@ -299,48 +339,94 @@ class DataView:
 
 class Form:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def send(self, url,  method,  asFormData):
         pass
 
+    @function_wrapper
     def clear(self, method):
         pass
 
+    @function_wrapper
     def setValue(self, obj):
         pass
 
+    @function_wrapper
     def getValue(self, asFormData):
         pass
 
+    @function_wrapper
     def getItem(self, id):
         pass
 
+    @function_wrapper
     def validate(self):
         pass
 
+    @function_wrapper
     def getRootView(self):
         pass
 
+    @function_wrapper
     def disable(self):
         pass
 
+    @function_wrapper
     def enable(self):
         pass
 
+    @function_wrapper
     def isDisabled(self, id):
         pass
 
+    @function_wrapper
     def forEach(self, callback):
         pass
 
+    @function_wrapper
     def destructor(self):
         pass
 
+    @function_wrapper
     def setConfig(self, config):
         pass
 
+    @function_wrapper
+    def disable(self):
+        pass
+
+    @function_wrapper
+    def enable(self):
+        pass
+
+    @function_wrapper
+    def isDisabled(self):
+        pass
+
+    @function_wrapper
+    def clear(self):
+        pass
+
+    @function_wrapper
+    def getValue(self):
+        pass
+
+    @function_wrapper
+    def setValue(self, value):
+        pass
+
+    @function_wrapper
+    def validate(self):
+        pass
+
+    @function_wrapper
     def getWidget(self):
+        pass
+
+    @function_wrapper
+    def setConfig(self, config):
         pass
 
     def change(self, arg0, arg1):
@@ -366,75 +452,97 @@ class Form:
 
 class Grid:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def destructor(self):
         pass
 
+    @function_wrapper
     def setColumns(self, columns):
         pass
 
+    @function_wrapper
     def addRowCss(self, id,  css):
         pass
 
+    @function_wrapper
     def removeRowCss(self, id,  css):
         pass
 
+    @function_wrapper
     def addCellCss(self, row,  col,  css):
         pass
 
+    @function_wrapper
     def removeCellCss(self, row,  col,  css):
         pass
 
+    @function_wrapper
     def showColumn(self, colId):
         pass
 
+    @function_wrapper
     def hideColumn(self, colId):
         pass
 
+    @function_wrapper
     def isColumnHidden(self, colId):
         pass
 
+    @function_wrapper
     def getScrollState(self):
         pass
 
+    @function_wrapper
     def scroll(self, x,  y):
         pass
 
+    @function_wrapper
     def scrollTo(self, row,  col):
         pass
 
+    @function_wrapper
     def adjustColumnWidth(self, id,  adjust):
         pass
 
+    @function_wrapper
     def getCellRect(self, row,  col):
         pass
 
+    @function_wrapper
     def getColumn(self, colId):
         pass
 
+    @function_wrapper
     def addSpan(self, spanObj):
         pass
 
+    @function_wrapper
     def getSpan(self, row,  col):
         pass
 
+    @function_wrapper
     def removeSpan(self, row,  col):
         pass
 
+    @function_wrapper
     def editCell(self, rowId,  colId,  editorType):
         pass
 
+    @function_wrapper
     def editEnd(self, withoutSave):
         pass
 
+    @function_wrapper
     def getSortingState(self):
         pass
 
+    @function_wrapper
     def edit(self, rowId,  colId,  editorType):
         pass
 
-    def scrollEvent(self, arg0):
+    def scroll(self, arg0):
         """JS_ARGS: types_1.GridEvents.scroll, [{y: e.target.scrollTop,x: e.target.scrollLeft}]);"""
         pass
 
@@ -555,9 +663,11 @@ class Layout:
     def __init__(self):
         self._unique_id = str(uuid4())
 
+    @function_wrapper
     def toVDOM(self):
         pass
 
+    @function_wrapper
     def removeCell(self, id):
         pass
 
@@ -565,18 +675,23 @@ class Layout:
     def addCell(self, config,  index):
         pass
 
+    @function_wrapper
     def getId(self, index):
         pass
 
+    @function_wrapper
     def getRefs(self, name):
         pass
 
+    @function_wrapper
     def getCell(self, id):
         pass
 
+    @function_wrapper
     def forEach(self, cb,  parent,  level):
         pass
 
+    @function_wrapper
     def cell(self, id):
         pass
 
@@ -643,29 +758,37 @@ class Layout:
 
 class List:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def editItem(self, id):
         pass
 
+    @function_wrapper
     def getFocusItem(self):
         pass
 
+    @function_wrapper
     def setFocus(self, id):
         pass
 
+    @function_wrapper
     def getFocus(self):
         pass
 
+    @function_wrapper
     def destructor(self):
         pass
 
+    @function_wrapper
     def getFocusIndex(self):
         pass
 
+    @function_wrapper
     def setFocusIndex(self, index):
         pass
 
+    @function_wrapper
     def edit(self, id):
         pass
 
@@ -712,40 +835,50 @@ class List:
 
 class Menu:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def showAt(self, elem,  showAt):
         pass
 
 
 class Popup:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def show(self, node,  config,  attached):
         pass
 
+    @function_wrapper
     def hide(self):
         pass
 
+    @function_wrapper
     def isVisible(self):
         pass
 
+    @function_wrapper
     def attach(self, name,  config):
         pass
 
+    @function_wrapper
     def attachHTML(self, html):
         pass
 
+    @function_wrapper
     def getWidget(self):
         pass
 
+    @function_wrapper
     def getContainer(self):
         pass
 
+    @function_wrapper
     def toVDOM(self):
         pass
 
+    @function_wrapper
     def destructor(self):
         pass
 
@@ -772,28 +905,34 @@ class Popup:
 
 class Ribbon:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def getState(self):
         pass
 
+    @function_wrapper
     def setState(self, state):
         pass
 
 
 class Sidebar:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def toggle(self):
         pass
 
+    @function_wrapper
     def collapse(self):
         pass
 
+    @function_wrapper
     def expand(self):
         pass
 
+    @function_wrapper
     def isCollapsed(self):
         pass
 
@@ -813,33 +952,40 @@ class Sidebar:
         """JS_ARGS: NO ARGS"""
         pass
 
-    def toggleEvent(self, arg0):
+    def toggle(self, arg0):
         """JS_ARGS: types_1.SidebarEvents.toggle, [this.config.collapsed]); // TODO: remove sute_7.0"""
         pass
 
 
 class Slider:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def disable(self):
         pass
 
+    @function_wrapper
     def enable(self):
         pass
 
+    @function_wrapper
     def isDisabled(self):
         pass
 
+    @function_wrapper
     def focus(self, extra):
         pass
 
+    @function_wrapper
     def getValue(self):
         pass
 
+    @function_wrapper
     def setValue(self, value):
         pass
 
+    @function_wrapper
     def destructor(self):
         pass
 
@@ -858,38 +1004,49 @@ class Slider:
 
 class Tabbar:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def toVDOM(self):
         pass
 
+    @function_wrapper
     def destructor(self):
         pass
 
+    @function_wrapper
     def getWidget(self):
         pass
 
+    @function_wrapper
     def setActive(self, id):
         pass
 
+    @function_wrapper
     def getActive(self):
         pass
 
+    @function_wrapper
     def addTab(self, config,  index):
         pass
 
+    @function_wrapper
     def removeTab(self, id):
         pass
 
+    @function_wrapper
     def disableTab(self, id):
         pass
 
+    @function_wrapper
     def enableTab(self, id):
         pass
 
+    @function_wrapper
     def isDisabled(self, id):
         pass
 
+    @function_wrapper
     def removeCell(self, id):
         pass
 
@@ -912,20 +1069,25 @@ class Tabbar:
 
 class Timepicker:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def getValue(self, asOBject):
         pass
 
+    @function_wrapper
     def setValue(self, value):
         pass
 
+    @function_wrapper
     def clear(self):
         pass
 
+    @function_wrapper
     def destructor(self):
         pass
 
+    @function_wrapper
     def getRootView(self):
         pass
 
@@ -956,70 +1118,90 @@ class Timepicker:
 
 class Toolbar:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def getState(self):
         pass
 
+    @function_wrapper
     def setState(self, state):
         pass
 
 
 class Tree:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def focusItem(self, id):
         pass
 
+    @function_wrapper
     def destructor(self):
         pass
 
+    @function_wrapper
     def editItem(self, id,  config):
         pass
 
+    @function_wrapper
     def getState(self):
         pass
 
+    @function_wrapper
     def setState(self, state):
         pass
 
+    @function_wrapper
     def toggle(self, id):
         pass
 
+    @function_wrapper
     def getChecked(self):
         pass
 
+    @function_wrapper
     def checkItem(self, id):
         pass
 
+    @function_wrapper
     def collapse(self, id):
         pass
 
+    @function_wrapper
     def collapseAll(self):
         pass
 
+    @function_wrapper
     def expand(self, id):
         pass
 
+    @function_wrapper
     def expandAll(self):
         pass
 
+    @function_wrapper
     def uncheckItem(self, id):
         pass
 
+    @function_wrapper
     def close(self, id):
         pass
 
+    @function_wrapper
     def closeAll(self):
         pass
 
+    @function_wrapper
     def open(self, id):
         pass
 
+    @function_wrapper
     def openAll(self):
         pass
 
+    @function_wrapper
     def unCheckItem(self, id):
         pass
 
@@ -1058,53 +1240,69 @@ class Tree:
 
 class Window:
     def __init__(self):
-        pass
+        self._unique_id = str(uuid4())
 
+    @function_wrapper
     def paint(self):
         pass
 
+    @function_wrapper
     def setFullScreen(self):
         pass
 
+    @function_wrapper
     def setSize(self, width,  height):
         pass
 
+    @function_wrapper
     def getSize(self):
         pass
 
+    @function_wrapper
     def setPosition(self, left,  top):
         pass
 
+    @function_wrapper
     def getPosition(self):
         pass
 
+    @function_wrapper
     def show(self, left,  top):
         pass
 
+    @function_wrapper
     def hide(self):
         pass
 
+    @function_wrapper
     def isVisible(self):
         pass
 
+    @function_wrapper
     def getWidget(self):
         pass
 
+    @function_wrapper
     def getContainer(self):
         pass
 
+    @function_wrapper
     def attach(self, name,  config):
         pass
 
+    @function_wrapper
     def attachHTML(self, html):
         pass
 
+    @function_wrapper
     def getRootView(self):
         pass
 
+    @function_wrapper
     def destructor(self):
         pass
 
+    @function_wrapper
     def fullScreen(self):
         pass
 
