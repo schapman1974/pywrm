@@ -64,10 +64,6 @@ class Calendar:
         """JS_ARGS: types_1.CalendarEvents.dateMouseOver, [new Date(node.attrs._date), event]);"""
         pass
 
-    def dateHover(self, arg0, arg1):
-        """JS_ARGS: types_1.CalendarEvents.dateHover, [new Date(node.attrs._date), event]); // TODO: remove sute_7.0"""
-        pass
-
 
 class Chart:
     def __init__(self):
@@ -180,14 +176,6 @@ class Colorpicker:
 
     def selectClick(self):
         """JS_ARGS: NO ARGS"""
-        pass
-
-    def colorChange(self, arg0):
-        """JS_ARGS: types_1.ColorpickerEvents.colorChange, [this._selected]); // TODO: remove sute_7.0"""
-        pass
-
-    def viewChange(self, arg0):
-        """JS_ARGS: types_1.ColorpickerEvents.viewChange, [mode]); // TODO: remove sute_7.0"""
         pass
 
 
@@ -330,10 +318,6 @@ class DataView:
 
     def itemMouseOver(self, arg0, arg1):
         """JS_ARGS: types_2.DataViewEvents.itemMouseOver, [id, e]);"""
-        pass
-
-    def contextmenu(self, arg0, arg1):
-        """JS_ARGS: types_2.DataViewEvents.contextmenu, [id, e]); // TODO: remove sute_7.0"""
         pass
 
 
@@ -654,14 +638,13 @@ class Grid:
         """JS_ARGS: types_1.GridEvents.afterKeyDown, [e]);"""
         pass
 
-    def headerInput(self, arg0, arg1, arg2):
-        """JS_ARGS: types_1.GridEvents.headerInput, ["", colId, "comboFilter"]); // TODO: remove sute_7.0"""
-        pass
-
 
 class Layout:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self.event_args = [
+            "beforeShow": 3,
+        ]
 
     @function_wrapper
     def toVDOM(self):
@@ -828,10 +811,6 @@ class List:
         """JS_ARGS: types_2.ListEvents.itemMouseOver, [id, e]);"""
         pass
 
-    def contextmenu(self, arg0, arg1):
-        """JS_ARGS: types_2.ListEvents.contextmenu, [id, e]); // TODO: remove sute_7.0"""
-        pass
-
 
 class Menu:
     def __init__(self):
@@ -952,10 +931,6 @@ class Sidebar:
         """JS_ARGS: NO ARGS"""
         pass
 
-    def toggle(self, arg0):
-        """JS_ARGS: types_1.SidebarEvents.toggle, [this.config.collapsed]); // TODO: remove sute_7.0"""
-        pass
-
 
 class Slider:
     def __init__(self):
@@ -1062,10 +1037,6 @@ class Tabbar:
         """JS_ARGS: types_1.TabbarEvents.afterClose, [id]);"""
         pass
 
-    def close(self, arg0):
-        """JS_ARGS: types_1.TabbarEvents.close, [id]); // TODO: remove sute_7.0"""
-        pass
-
 
 class Timepicker:
     def __init__(self):
@@ -1109,10 +1080,6 @@ class Timepicker:
 
     def close(self):
         """JS_ARGS: NO ARGS"""
-        pass
-
-    def save(self, arg0):
-        """JS_ARGS: types_1.TimepickerEvents.save, [_this._time]); // TODO: remove sute_7.0"""
         pass
 
 
@@ -1231,10 +1198,6 @@ class Tree:
 
     def afterExpand(self, arg0):
         """JS_ARGS: types_2.TreeEvents.afterExpand, [id]);"""
-        pass
-
-    def itemContextMenu(self, arg0, arg1):
-        """JS_ARGS: types_2.TreeEvents.itemContextMenu, [id, e]); // TODO: remove sute_7.0"""
         pass
 
 
