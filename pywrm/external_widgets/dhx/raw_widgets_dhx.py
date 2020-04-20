@@ -1,12 +1,36 @@
-""" Auto Generated raw classes for dhx. """
 from uuid import uuid4
+from typing import AnyStr, Callable
+from functools import singledispatch, update_wrapper
+from decorators.decorators import (function_wrapper,
+                                   event_wrapper,
+                                   init_wrapper,
+                                   return_wrapper)
 
-from decorators.decorators import function_wrapper
 
+def overloadmethod(func):
+    dispatcher = singledispatch(func)
+    def wrapper(*args, **kw):
+        return dispatcher.dispatch(args[1].__class__)(*args, **kw)
+    wrapper.register = dispatcher.register
+    update_wrapper(wrapper, func)
+    return wrapper
 
 class Calendar:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "beforeChange": 3,
+            "cancelClick": 0,
+            "change": 3,
+            "dateMouseOver": 2,
+            "modeChange": 1,
+            "monthSelected": 1,
+            "yearSelected": 1,
+        }
+
+    @init_wrapper
+    def initCalendar(self, config):
+        pass
 
     @function_wrapper
     def setValue(self, value):
@@ -36,38 +60,56 @@ class Calendar:
     def link(self, targetCalendar):
         pass
 
-    def change(self, arg0, arg1, arg2):
-        """JS_ARGS: types_1.CalendarEvents.change, [_this._getSelected(), oldDate, true]);"""
-        pass
-
-    def beforeChange(self, arg0, arg1, arg2):
+    @event_wrapper
+    def beforeChange(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.CalendarEvents.beforeChange, [newDate, oldDate, true])) {"""
         pass
 
-    def modeChange(self, arg0):
-        """JS_ARGS: types_1.CalendarEvents.modeChange, [types_1.ViewMode.timepicker]);"""
-        pass
-
-    def monthSelected(self, arg0):
-        """JS_ARGS: types_1.CalendarEvents.monthSelected, [date]);"""
-        pass
-
-    def yearSelected(self, arg0):
-        """JS_ARGS: types_1.CalendarEvents.yearSelected, [date]);"""
-        pass
-
-    def cancelClick(self):
+    @event_wrapper
+    def cancelClick(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
-    def dateMouseOver(self, arg0, arg1):
+    @event_wrapper
+    def change(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.CalendarEvents.change, [_this._getSelected(), oldDate, true]);"""
+        pass
+
+    @event_wrapper
+    def dateMouseOver(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.CalendarEvents.dateMouseOver, [new Date(node.attrs._date), event]);"""
+        pass
+
+    @event_wrapper
+    def modeChange(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.CalendarEvents.modeChange, [types_1.ViewMode.timepicker]);"""
+        pass
+
+    @event_wrapper
+    def monthSelected(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.CalendarEvents.monthSelected, [date]);"""
+        pass
+
+    @event_wrapper
+    def yearSelected(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.CalendarEvents.yearSelected, [date]);"""
         pass
 
 
 class Chart:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "chartMouseLeave": 0,
+            "chartMouseMove": 4,
+            "resize": 1,
+            "serieClick": 2,
+            "toggleSeries": 2,
+        }
+
+    @init_wrapper
+    def initChart(self, config):
+        pass
 
     @function_wrapper
     def getSeries(self, key):
@@ -85,30 +127,46 @@ class Chart:
     def setConfig(self, config):
         pass
 
-    def toggleSeries(self, arg0, arg1):
-        """JS_ARGS: types_1.ChartEvents.toggleSeries, [id, pieLike]); }"""
-        pass
-
-    def chartMouseMove(self, arg0, arg1, arg2, arg3):
-        """JS_ARGS: types_1.ChartEvents.chartMouseMove, [x, y, _this._left + left, _this._top + top]);"""
-        pass
-
-    def chartMouseLeave(self):
+    @event_wrapper
+    def chartMouseLeave(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
-    def resize(self, arg0):
+    @event_wrapper
+    def chartMouseMove(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.ChartEvents.chartMouseMove, [x, y, _this._left + left, _this._top + top]);"""
+        pass
+
+    @event_wrapper
+    def resize(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.ChartEvents.resize, [{width: _this._width,height: _this._height}]);"""
         pass
 
-    def serieClick(self, arg0, arg1):
+    @event_wrapper
+    def serieClick(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.ChartEvents.serieClick, [id, value]); }"""
+        pass
+
+    @event_wrapper
+    def toggleSeries(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.ChartEvents.toggleSeries, [id, pieLike]); }"""
         pass
 
 
 class Colorpicker:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "apply": 0,
+            "cancelClick": 0,
+            "change": 1,
+            "modeChange": 1,
+            "selectClick": 0,
+        }
+
+    @init_wrapper
+    def initColorpicker(self, config):
+        pass
 
     @function_wrapper
     def destructor(self):
@@ -158,23 +216,28 @@ class Colorpicker:
     def focusValue(self, value):
         pass
 
-    def change(self, arg0):
+    @event_wrapper
+    def apply(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def cancelClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def change(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.ColorpickerEvents.change, [this._selected]);"""
         pass
 
-    def apply(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def cancelClick(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def modeChange(self, arg0):
+    @event_wrapper
+    def modeChange(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.ColorpickerEvents.modeChange, [mode]);"""
         pass
 
-    def selectClick(self):
+    @event_wrapper
+    def selectClick(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
@@ -182,6 +245,18 @@ class Colorpicker:
 class Combobox:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "afterClose": 0,
+            "beforeClose": 0,
+            "change": 0,
+            "close": 0,
+            "input": 1,
+            "open": 0,
+        }
+
+    @init_wrapper
+    def initCombobox(self, config):
+        pass
 
     @function_wrapper
     def focus(self):
@@ -219,27 +294,33 @@ class Combobox:
     def setState(self, state):
         pass
 
-    def change(self):
+    @event_wrapper
+    def afterClose(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
-    def open(self):
+    @event_wrapper
+    def beforeClose(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
-    def input(self, arg0):
+    @event_wrapper
+    def change(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def close(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def input(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.ComboboxEvents.input, [value]);"""
         pass
 
-    def beforeClose(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def afterClose(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def close(self):
+    @event_wrapper
+    def open(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
@@ -247,6 +328,21 @@ class Combobox:
 class DataView:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "afterEditEnd": 2,
+            "afterEditStart": 1,
+            "beforeEditEnd": 2,
+            "beforeEditStart": 1,
+            "click": 2,
+            "doubleClick": 2,
+            "focusChange": 2,
+            "itemMouseOver": 2,
+            "itemRightClick": 2,
+        }
+
+    @init_wrapper
+    def initDataView(self, config):
+        pass
 
     @function_wrapper
     def editItem(self, id):
@@ -284,46 +380,66 @@ class DataView:
     def edit(self, id):
         pass
 
-    def click(self, arg0, arg1):
-        """JS_ARGS: types_2.DataViewEvents.click, [id, e]);"""
-        pass
-
-    def doubleClick(self, arg0, arg1):
-        """JS_ARGS: types_2.DataViewEvents.doubleClick, [id, e]);"""
-        pass
-
-    def focusChange(self, arg0, arg1):
-        """JS_ARGS: types_2.DataViewEvents.focusChange, [this._focusIndex, this.data.getId(this._focusIndex)]);"""
-        pass
-
-    def beforeEditStart(self, arg0):
-        """JS_ARGS: types_2.DataViewEvents.beforeEditStart, [id])) {"""
-        pass
-
-    def afterEditStart(self, arg0):
-        """JS_ARGS: types_2.DataViewEvents.afterEditStart, [id]);"""
-        pass
-
-    def beforeEditEnd(self, arg0, arg1):
-        """JS_ARGS: types_1.DataViewEvents.beforeEditEnd, [value, this._item.id])) {"""
-        pass
-
-    def afterEditEnd(self, arg0, arg1):
+    @event_wrapper
+    def afterEditEnd(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.DataViewEvents.afterEditEnd, [value, this._item.id]);"""
         pass
 
-    def itemRightClick(self, arg0, arg1):
-        """JS_ARGS: types_2.DataViewEvents.itemRightClick, [id, e]);"""
+    @event_wrapper
+    def afterEditStart(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.DataViewEvents.afterEditStart, [id]);"""
         pass
 
-    def itemMouseOver(self, arg0, arg1):
+    @event_wrapper
+    def beforeEditEnd(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.DataViewEvents.beforeEditEnd, [value, this._item.id])) {"""
+        pass
+
+    @event_wrapper
+    def beforeEditStart(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.DataViewEvents.beforeEditStart, [id])) {"""
+        pass
+
+    @event_wrapper
+    def click(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.DataViewEvents.click, [id, e]);"""
+        pass
+
+    @event_wrapper
+    def doubleClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.DataViewEvents.doubleClick, [id, e]);"""
+        pass
+
+    @event_wrapper
+    def focusChange(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.DataViewEvents.focusChange, [this._focusIndex, this.data.getId(this._focusIndex)]);"""
+        pass
+
+    @event_wrapper
+    def itemMouseOver(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_2.DataViewEvents.itemMouseOver, [id, e]);"""
+        pass
+
+    @event_wrapper
+    def itemRightClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.DataViewEvents.itemRightClick, [id, e]);"""
         pass
 
 
 class Form:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "afterSend": 0,
+            "beforeSend": 0,
+            "buttonClick": 2,
+            "change": 2,
+            "validationFail": 2,
+        }
+
+    @init_wrapper
+    def initForm(self, config):
+        pass
 
     @function_wrapper
     def send(self, url,  method,  asFormData):
@@ -378,65 +494,72 @@ class Form:
         pass
 
     @function_wrapper
-    def disable(self):
-        pass
-
-    @function_wrapper
-    def enable(self):
-        pass
-
-    @function_wrapper
-    def isDisabled(self):
-        pass
-
-    @function_wrapper
-    def clear(self):
-        pass
-
-    @function_wrapper
-    def getValue(self):
-        pass
-
-    @function_wrapper
-    def setValue(self, value):
-        pass
-
-    @function_wrapper
-    def validate(self):
-        pass
-
-    @function_wrapper
     def getWidget(self):
         pass
 
-    @function_wrapper
-    def setConfig(self, config):
+    @event_wrapper
+    def afterSend(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
         pass
 
-    def change(self, arg0, arg1):
-        """JS_ARGS: types_1.FormEvents.change, [name, value]);"""
+    @event_wrapper
+    def beforeSend(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
         pass
 
-    def buttonClick(self, arg0, arg1):
+    @event_wrapper
+    def buttonClick(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.FormEvents.buttonClick, [id, e]);"""
         pass
 
-    def validationFail(self, arg0, arg1):
+    @event_wrapper
+    def change(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.FormEvents.change, [name, value]);"""
+        pass
+
+    @event_wrapper
+    def validationFail(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.FormEvents.validationFail, [id, component]);"""
-        pass
-
-    def beforeSend(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def afterSend(self):
-        """JS_ARGS: NO ARGS"""
         pass
 
 
 class Grid:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "afterEditEnd": 3,
+            "afterEditStart": 3,
+            "afterKeyDown": 1,
+            "afterResizeEnd": 2,
+            "beforeEditEnd": 3,
+            "beforeEditStart": 3,
+            "beforeKeyDown": 1,
+            "beforeResizeStart": 2,
+            "cellClick": 0,
+            "cellDblClick": 0,
+            "cellMouseDown": 0,
+            "cellMouseOver": 0,
+            "cellRightClick": 0,
+            "expand": 1,
+            "filterChange": 3,
+            "footerCellClick": 0,
+            "footerCellDblClick": 0,
+            "footerCellMouseDown": 0,
+            "footerCellMouseOver": 0,
+            "footerCellRightClick": 0,
+            "headerCellClick": 0,
+            "headerCellDblClick": 0,
+            "headerCellMouseDown": 0,
+            "headerCellMouseOver": 0,
+            "headerCellRightClick": 0,
+            "resize": 1,
+            "scroll": 1,
+            "sort": 1,
+        }
+
+    @init_wrapper
+    def initGrid(self, config):
+        pass
 
     @function_wrapper
     def destructor(self):
@@ -526,222 +649,312 @@ class Grid:
     def edit(self, rowId,  colId,  editorType):
         pass
 
-    def scroll(self, arg0):
-        """JS_ARGS: types_1.GridEvents.scroll, [{y: e.target.scrollTop,x: e.target.scrollLeft}]);"""
-        pass
-
-    def sort(self, arg0):
-        """JS_ARGS: types_1.GridEvents.sort, [item]);"""
-        pass
-
-    def expand(self, arg0):
-        """JS_ARGS: types_1.GridEvents.expand, [item]);"""
-        pass
-
-    def filterChange(self, arg0, arg1, arg2):
-        """JS_ARGS: types_1.GridEvents.filterChange, ["", colId, "comboFilter"]);"""
-        pass
-
-    def beforeResizeStart(self, arg0, arg1):
-        """JS_ARGS: types_1.GridEvents.beforeResizeStart, [col, e])) {"""
-        pass
-
-    def resize(self, arg0):
-        """JS_ARGS: types_1.GridEvents.resize, [grid.config.columns[i], e]);"""
-        pass
-
-    def afterResizeEnd(self, arg0, arg1):
-        """JS_ARGS: types_1.GridEvents.afterResizeEnd, [col, e]);"""
-        pass
-
-    def cellClick(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def cellRightClick(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def cellMouseOver(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def cellMouseDown(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def cellDblClick(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def headerCellClick(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def footerCellClick(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def headerCellMouseOver(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def footerCellMouseOver(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def headerCellMouseDown(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def footerCellMouseDown(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def headerCellDblClick(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def footerCellDblClick(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def headerCellRightClick(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def footerCellRightClick(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def beforeEditStart(self, arg0, arg1, arg2):
-        """JS_ARGS: types_1.GridEvents.beforeEditStart, [row, col, editorType])) {"""
-        pass
-
-    def afterEditStart(self, arg0, arg1, arg2):
-        """JS_ARGS: types_1.GridEvents.afterEditStart, [row, col, editorType]);"""
-        pass
-
-    def beforeEditEnd(self, arg0, arg1, arg2):
-        """JS_ARGS: types_1.GridEvents.beforeEditEnd, [value, this._cell.row, this._cell.col])) {"""
-        pass
-
-    def afterEditEnd(self, arg0, arg1, arg2):
+    @event_wrapper
+    def afterEditEnd(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.GridEvents.afterEditEnd, [value, this._cell.row, this._cell.col]);"""
         pass
 
-    def beforeKeyDown(self, arg0):
+    @event_wrapper
+    def afterEditStart(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.GridEvents.afterEditStart, [row, col, editorType]);"""
+        pass
+
+    @event_wrapper
+    def afterKeyDown(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.GridEvents.afterKeyDown, [e]);"""
+        pass
+
+    @event_wrapper
+    def afterResizeEnd(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.GridEvents.afterResizeEnd, [col, e]);"""
+        pass
+
+    @event_wrapper
+    def beforeEditEnd(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.GridEvents.beforeEditEnd, [value, this._cell.row, this._cell.col])) {"""
+        pass
+
+    @event_wrapper
+    def beforeEditStart(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.GridEvents.beforeEditStart, [row, col, editorType])) {"""
+        pass
+
+    @event_wrapper
+    def beforeKeyDown(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.GridEvents.beforeKeyDown, [e])) {"""
         pass
 
-    def afterKeyDown(self, arg0):
-        """JS_ARGS: types_1.GridEvents.afterKeyDown, [e]);"""
+    @event_wrapper
+    def beforeResizeStart(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.GridEvents.beforeResizeStart, [col, e])) {"""
+        pass
+
+    @event_wrapper
+    def cellClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def cellDblClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def cellMouseDown(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def cellMouseOver(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def cellRightClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def expand(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.GridEvents.expand, [item]);"""
+        pass
+
+    @event_wrapper
+    def filterChange(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.GridEvents.filterChange, ["", colId, "comboFilter"]);"""
+        pass
+
+    @event_wrapper
+    def footerCellClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def footerCellDblClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def footerCellMouseDown(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def footerCellMouseOver(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def footerCellRightClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def headerCellClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def headerCellDblClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def headerCellMouseDown(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def headerCellMouseOver(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def headerCellRightClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
+        pass
+
+    @event_wrapper
+    def resize(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.GridEvents.resize, [grid.config.columns[i], e]);"""
+        pass
+
+    @event_wrapper
+    def scroll_event(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.GridEvents.scroll, [{y: e.target.scrollTop,x: e.target.scrollLeft}]);"""
+        pass
+
+    @event_wrapper
+    def sort(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.GridEvents.sort, [item]);"""
         pass
 
 
 class Layout:
     def __init__(self):
         self._unique_id = str(uuid4())
-        self.event_args = [
-            "beforeShow": 3,
-        ]
+        self._event_param_qty = {
+            "afterAdd": 1,
+            "afterCollapse": 1,
+            "afterExpand": 1,
+            "afterHide": 1,
+            "afterRemove": 1,
+            "afterResizeEnd": 1,
+            "afterShow": 0,
+            "beforeAdd": 1,
+            "beforeCollapse": 1,
+            "beforeExpand": 1,
+            "beforeHide": 1,
+            "beforeRemove": 1,
+            "beforeResizeStart": 1,
+            "beforeShow": 1,
+            "resize": 1,
+        }
+        self._resizable = False
+        self.event_callable = {}
+        self.js_init_call = 'var layout = new dhx.Layout("{unique_id}", {config}'
 
-    @function_wrapper
-    def toVDOM(self):
+    @init_wrapper
+    def initLayout(self, config):
         pass
 
     @function_wrapper
-    def removeCell(self, id):
+    def attach(self, cell_id, component, config={}):
+        """attaches a DHTMLX component into a Layout cell"""
+        #TODO This function takes no parameters but should point to a specific cell
+        #      We need to figure out how to pass this parameter EX: layout.cell(cell_id).attach(component, config)
         pass
 
     @function_wrapper
-    def addCell(self, config,  index):
+    def attachHTML(self, html):
+        """adds an HTML content into a dhtmlxLayout cell"""
         pass
 
     @function_wrapper
-    def getId(self, index):
+    def collapse(self, cell_id):
+        """collapses a specified cell"""
+        #TODO This function takes no parameters but should point to a specific cell
+        #      We need to figure out how to pas this parameter EX: layout.cell(cell_id).collapse()
         pass
 
     @function_wrapper
-    def getRefs(self, name):
+    def expand(self, cell_id):
+        """expands a collapsed cell"""
+        #TODO This function takes no parameters but should point to a specific cell
+        #      We need to figure out how to pas this parameter EX: layout.cell(cell_id).expand()
         pass
 
     @function_wrapper
-    def getCell(self, id):
+    def paint(self):
+        """repaints Layout on a page"""
         pass
 
-    @function_wrapper
-    def forEach(self, cb,  parent,  level):
+    @property
+    def resizable(self):
+        self._resizable
+
+    @resizable.setter
+    def resizable(self, resize_bool):
+        self._resizable = resize_bool
+
+    def afterAdd(self, callable_name: str, ret_widget_values: list, block_signal: bool = False):
+        print("afteradd send")
         pass
 
-    @function_wrapper
-    def cell(self, id):
-        pass
-
-    def beforeShow(self, arg0):
-        """JS_ARGS: types_1.LayoutEvents.beforeShow, [this.id])) {"""
-        pass
-
-    def afterShow(self):
-        """JS_ARGS: NO ARGS"""
-        pass
-
-    def beforeHide(self, arg0):
-        """JS_ARGS: types_1.LayoutEvents.beforeHide, [this.id])) {"""
-        pass
-
-    def afterHide(self, arg0):
-        """JS_ARGS: types_1.LayoutEvents.afterHide, [this.id]);"""
-        pass
-
-    def beforeResizeStart(self, arg0):
-        """JS_ARGS: types_1.LayoutEvents.beforeResizeStart, [_this.id])) {"""
-        pass
-
-    def resize(self, arg0):
-        """JS_ARGS: types_1.LayoutEvents.resize, [_this.id]);"""
-        pass
-
-    def afterResizeEnd(self, arg0):
-        """JS_ARGS: types_1.LayoutEvents.afterResizeEnd, [_this.id]);"""
-        pass
-
-    def beforeAdd(self, arg0):
-        """JS_ARGS: types_1.LayoutEvents.beforeAdd, [config.id])) {"""
-        pass
-
-    def afterAdd(self, arg0):
-        """JS_ARGS: types_1.LayoutEvents.afterAdd, [config.id])) {"""
-        pass
-
-    def beforeRemove(self, arg0):
-        """JS_ARGS: types_1.LayoutEvents.beforeRemove, [id])) {"""
-        pass
-
-    def afterRemove(self, arg0):
-        """JS_ARGS: types_1.LayoutEvents.afterRemove, [id]);"""
-        pass
-
-    def beforeCollapse(self, arg0):
-        """JS_ARGS: types_1.LayoutEvents.beforeCollapse, [this.id])) {"""
-        pass
-
-    def afterCollapse(self, arg0):
+    @event_wrapper
+    def afterCollapse(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.LayoutEvents.afterCollapse, [this.id]);"""
         pass
 
-    def beforeExpand(self, arg0):
+    @event_wrapper
+    def afterExpand(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.LayoutEvents.afterExpand, [this.id]);"""
+        pass
+
+    @event_wrapper
+    def afterHide(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.LayoutEvents.afterHide, [this.id]);"""
+        pass
+
+    @event_wrapper
+    def afterRemove(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.LayoutEvents.afterRemove, [id]);"""
+        pass
+
+    @event_wrapper
+    def afterResizeEnd(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.LayoutEvents.afterResizeEnd, [_this.id]);"""
+        pass
+
+    @event_wrapper
+    def afterShow(self, callable, ret_widget_values: list = [], block_signal: bool = False):
+        print("aftershow send")
+        pass
+
+    @return_wrapper
+    def afterShow_return(self, arg: dict, **kwargs):
+        print("aftershow return")
+        pass
+
+    @event_wrapper
+    def beforeAdd(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.LayoutEvents.beforeAdd, [config.id])) {"""
+        pass
+
+    @event_wrapper
+    def beforeCollapse(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.LayoutEvents.beforeCollapse, [this.id])) {"""
+        pass
+
+    @event_wrapper
+    def beforeExpand(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.LayoutEvents.beforeExpand, [this.id])) {"""
         pass
 
-    def afterExpand(self, arg0):
-        """JS_ARGS: types_1.LayoutEvents.afterExpand, [this.id]);"""
+    @event_wrapper
+    def beforeHide(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.LayoutEvents.beforeHide, [this.id])) {"""
+        pass
+
+    @event_wrapper
+    def beforeRemove(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.LayoutEvents.beforeRemove, [id])) {"""
+        pass
+
+    @event_wrapper
+    def beforeResizeStart(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.LayoutEvents.beforeResizeStart, [_this.id])) {"""
+        pass
+
+    @event_wrapper
+    def beforeShow(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.LayoutEvents.beforeShow, [this.id])) {"""
+        pass
+
+    @event_wrapper
+    def resize(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.LayoutEvents.resize, [_this.id]);"""
         pass
 
 
 class List:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "afterEditEnd": 2,
+            "afterEditStart": 1,
+            "beforeEditEnd": 2,
+            "beforeEditStart": 1,
+            "click": 2,
+            "doubleClick": 2,
+            "focusChange": 2,
+            "itemMouseOver": 2,
+            "itemRightClick": 2,
+        }
+
+    @init_wrapper
+    def initList(self, config):
+        pass
 
     @function_wrapper
     def editItem(self, id):
@@ -775,46 +988,61 @@ class List:
     def edit(self, id):
         pass
 
-    def click(self, arg0, arg1):
-        """JS_ARGS: types_2.ListEvents.click, [id, e]);"""
-        pass
-
-    def doubleClick(self, arg0, arg1):
-        """JS_ARGS: types_2.ListEvents.doubleClick, [id, e]);"""
-        pass
-
-    def focusChange(self, arg0, arg1):
-        """JS_ARGS: types_2.ListEvents.focusChange, [this._focusIndex, this.data.getId(this._focusIndex)]);"""
-        pass
-
-    def beforeEditStart(self, arg0):
-        """JS_ARGS: types_2.ListEvents.beforeEditStart, [id])) {"""
-        pass
-
-    def afterEditStart(self, arg0):
-        """JS_ARGS: types_2.ListEvents.afterEditStart, [id]);"""
-        pass
-
-    def beforeEditEnd(self, arg0, arg1):
-        """JS_ARGS: types_1.ListEvents.beforeEditEnd, [value, this._item.id])) {"""
-        pass
-
-    def afterEditEnd(self, arg0, arg1):
+    @event_wrapper
+    def afterEditEnd(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.ListEvents.afterEditEnd, [value, this._item.id]);"""
         pass
 
-    def itemRightClick(self, arg0, arg1):
-        """JS_ARGS: types_2.ListEvents.itemRightClick, [id, e]);"""
+    @event_wrapper
+    def afterEditStart(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.ListEvents.afterEditStart, [id]);"""
         pass
 
-    def itemMouseOver(self, arg0, arg1):
+    @event_wrapper
+    def beforeEditEnd(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.ListEvents.beforeEditEnd, [value, this._item.id])) {"""
+        pass
+
+    @event_wrapper
+    def beforeEditStart(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.ListEvents.beforeEditStart, [id])) {"""
+        pass
+
+    @event_wrapper
+    def click(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.ListEvents.click, [id, e]);"""
+        pass
+
+    @event_wrapper
+    def doubleClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.ListEvents.doubleClick, [id, e]);"""
+        pass
+
+    @event_wrapper
+    def focusChange(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.ListEvents.focusChange, [this._focusIndex, this.data.getId(this._focusIndex)]);"""
+        pass
+
+    @event_wrapper
+    def itemMouseOver(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_2.ListEvents.itemMouseOver, [id, e]);"""
+        pass
+
+    @event_wrapper
+    def itemRightClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.ListEvents.itemRightClick, [id, e]);"""
         pass
 
 
 class Menu:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+        }
+
+    @init_wrapper
+    def initMenu(self, config):
+        pass
 
     @function_wrapper
     def showAt(self, elem,  showAt):
@@ -824,6 +1052,17 @@ class Menu:
 class Popup:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "afterHide": 1,
+            "afterShow": 1,
+            "beforeHide": 2,
+            "beforeShow": 1,
+            "click": 1,
+        }
+
+    @init_wrapper
+    def initPopup(self, config):
+        pass
 
     @function_wrapper
     def show(self, node,  config,  attached):
@@ -861,23 +1100,28 @@ class Popup:
     def destructor(self):
         pass
 
-    def beforeHide(self, arg0, arg1):
-        """JS_ARGS: types_1.PopupEvents.beforeHide, [fromOuterClick, e])) {"""
-        pass
-
-    def beforeShow(self, arg0):
-        """JS_ARGS: types_1.PopupEvents.beforeShow, [node])) {"""
-        pass
-
-    def afterHide(self, arg0):
+    @event_wrapper
+    def afterHide(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.PopupEvents.afterHide, [e]);"""
         pass
 
-    def afterShow(self, arg0):
+    @event_wrapper
+    def afterShow(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.PopupEvents.afterShow, [node]);"""
         pass
 
-    def click(self, arg0):
+    @event_wrapper
+    def beforeHide(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.PopupEvents.beforeHide, [fromOuterClick, e])) {"""
+        pass
+
+    @event_wrapper
+    def beforeShow(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.PopupEvents.beforeShow, [node])) {"""
+        pass
+
+    @event_wrapper
+    def click(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.PopupEvents.click, [e]); };"""
         pass
 
@@ -885,6 +1129,12 @@ class Popup:
 class Ribbon:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+        }
+
+    @init_wrapper
+    def initRibbon(self, config):
+        pass
 
     @function_wrapper
     def getState(self):
@@ -898,6 +1148,16 @@ class Ribbon:
 class Sidebar:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "afterCollapse": 0,
+            "afterExpand": 0,
+            "beforeCollapse": 0,
+            "beforeExpand": 0,
+        }
+
+    @init_wrapper
+    def initSidebar(self, config):
+        pass
 
     @function_wrapper
     def toggle(self):
@@ -915,19 +1175,23 @@ class Sidebar:
     def isCollapsed(self):
         pass
 
-    def beforeCollapse(self):
+    @event_wrapper
+    def afterCollapse(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
-    def afterCollapse(self):
+    @event_wrapper
+    def afterExpand(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
-    def beforeExpand(self):
+    @event_wrapper
+    def beforeCollapse(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
-    def afterExpand(self):
+    @event_wrapper
+    def beforeExpand(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
@@ -935,6 +1199,15 @@ class Sidebar:
 class Slider:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "change": 3,
+            "mousedown": 1,
+            "mouseup": 1,
+        }
+
+    @init_wrapper
+    def initSlider(self, config):
+        pass
 
     @function_wrapper
     def disable(self):
@@ -964,15 +1237,18 @@ class Slider:
     def destructor(self):
         pass
 
-    def change(self, arg0, arg1, arg2):
+    @event_wrapper
+    def change(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.SliderEvents.change, [newValue, oldValue, extra]);"""
         pass
 
-    def mousedown(self, arg0):
+    @event_wrapper
+    def mousedown(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.SliderEvents.mousedown, [e]);"""
         pass
 
-    def mouseup(self, arg0):
+    @event_wrapper
+    def mouseup(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.SliderEvents.mouseup, [e]);"""
         pass
 
@@ -980,6 +1256,15 @@ class Slider:
 class Tabbar:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "afterClose": 1,
+            "beforeClose": 1,
+            "change": 2,
+        }
+
+    @init_wrapper
+    def initTabbar(self, config):
+        pass
 
     @function_wrapper
     def toVDOM(self):
@@ -1025,22 +1310,36 @@ class Tabbar:
     def removeCell(self, id):
         pass
 
-    def change(self, arg0, arg1):
-        """JS_ARGS: types_1.TabbarEvents.change, [_this.config.activeView, prev]);"""
+    @event_wrapper
+    def afterClose(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.TabbarEvents.afterClose, [id]);"""
         pass
 
-    def beforeClose(self, arg0):
+    @event_wrapper
+    def beforeClose(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.TabbarEvents.beforeClose, [id])) {"""
         pass
 
-    def afterClose(self, arg0):
-        """JS_ARGS: types_1.TabbarEvents.afterClose, [id]);"""
+    @event_wrapper
+    def change(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.TabbarEvents.change, [_this.config.activeView, prev]);"""
         pass
 
 
 class Timepicker:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "afterClose": 0,
+            "apply": 1,
+            "beforeClose": 0,
+            "change": 1,
+            "close": 0,
+        }
+
+    @init_wrapper
+    def initTimepicker(self, config):
+        pass
 
     @function_wrapper
     def getValue(self, asOBject):
@@ -1062,23 +1361,28 @@ class Timepicker:
     def getRootView(self):
         pass
 
-    def change(self, arg0):
-        """JS_ARGS: types_1.TimepickerEvents.change, [_this.getValue()]);"""
+    @event_wrapper
+    def afterClose(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: NO ARGS"""
         pass
 
-    def apply(self, arg0):
+    @event_wrapper
+    def apply(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.TimepickerEvents.apply, [_this._time]);"""
         pass
 
-    def beforeClose(self):
+    @event_wrapper
+    def beforeClose(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
-    def afterClose(self):
-        """JS_ARGS: NO ARGS"""
+    @event_wrapper
+    def change(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.TimepickerEvents.change, [_this.getValue()]);"""
         pass
 
-    def close(self):
+    @event_wrapper
+    def close(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
@@ -1086,6 +1390,12 @@ class Timepicker:
 class Toolbar:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+        }
+
+    @init_wrapper
+    def initToolbar(self, config):
+        pass
 
     @function_wrapper
     def getState(self):
@@ -1099,6 +1409,19 @@ class Toolbar:
 class Tree:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "afterCollapse": 1,
+            "afterExpand": 1,
+            "beforeCollapse": 1,
+            "beforeExpand": 1,
+            "itemClick": 2,
+            "itemDblClick": 2,
+            "itemRightClick": 2,
+        }
+
+    @init_wrapper
+    def initTree(self, config):
+        pass
 
     @function_wrapper
     def focusItem(self, id):
@@ -1172,38 +1495,58 @@ class Tree:
     def unCheckItem(self, id):
         pass
 
-    def itemClick(self, arg0, arg1):
-        """JS_ARGS: types_2.TreeEvents.itemClick, [id, e]);"""
-        pass
-
-    def itemDblClick(self, arg0, arg1):
-        """JS_ARGS: types_2.TreeEvents.itemDblClick, [id, e]);"""
-        pass
-
-    def itemRightClick(self, arg0, arg1):
-        """JS_ARGS: types_2.TreeEvents.itemRightClick, [id, e]);"""
-        pass
-
-    def beforeCollapse(self, arg0):
-        """JS_ARGS: types_2.TreeEvents.beforeCollapse, [id])) {"""
-        pass
-
-    def afterCollapse(self, arg0):
+    @event_wrapper
+    def afterCollapse(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_2.TreeEvents.afterCollapse, [id]);"""
         pass
 
-    def beforeExpand(self, arg0):
+    @event_wrapper
+    def afterExpand(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.TreeEvents.afterExpand, [id]);"""
+        pass
+
+    @event_wrapper
+    def beforeCollapse(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.TreeEvents.beforeCollapse, [id])) {"""
+        pass
+
+    @event_wrapper
+    def beforeExpand(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_2.TreeEvents.beforeExpand, [id])) {"""
         pass
 
-    def afterExpand(self, arg0):
-        """JS_ARGS: types_2.TreeEvents.afterExpand, [id]);"""
+    @event_wrapper
+    def itemClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.TreeEvents.itemClick, [id, e]);"""
+        pass
+
+    @event_wrapper
+    def itemDblClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.TreeEvents.itemDblClick, [id, e]);"""
+        pass
+
+    @event_wrapper
+    def itemRightClick(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_2.TreeEvents.itemRightClick, [id, e]);"""
         pass
 
 
 class Window:
     def __init__(self):
         self._unique_id = str(uuid4())
+        self._event_param_qty = {
+            "afterHide": 0,
+            "afterShow": 0,
+            "beforeHide": 0,
+            "beforeShow": 2,
+            "headerDoubleClick": 0,
+            "move": 3,
+            "resize": 3,
+        }
+
+    @init_wrapper
+    def initWindow(self, config):
+        pass
 
     @function_wrapper
     def paint(self):
@@ -1269,30 +1612,43 @@ class Window:
     def fullScreen(self):
         pass
 
-    def resize(self, arg0, arg1, arg2):
-        """JS_ARGS: types_1.WindowEvents.resize, [size, { left: left, top: top, height: height, width: width }, resizeConfig]);"""
-        pass
-
-    def headerDoubleClick(self):
+    @event_wrapper
+    def afterHide(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
-    def move(self, arg0, arg1, arg2):
-        """JS_ARGS: types_1.WindowEvents.move, [position,oldposition,{ left: true, top: true, bottom: true, right: true }]);"""
-        pass
-
-    def afterShow(self):
+    @event_wrapper
+    def afterShow(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
-    def afterHide(self):
+    @event_wrapper
+    def beforeHide(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
 
-    def beforeShow(self, arg0, arg1):
+    @event_wrapper
+    def beforeShow(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: types_1.WindowEvents.beforeShow, [left, top])) {"""
         pass
 
-    def beforeHide(self):
+    @event_wrapper
+    def headerDoubleClick(self, callable, ret_widget_values=[], block_signal = False):
         """JS_ARGS: NO ARGS"""
         pass
+
+    @event_wrapper
+    def move(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.WindowEvents.move, [position,oldposition,{ left: true, top: true, bottom: true, right: true }]);"""
+        pass
+
+    @event_wrapper
+    def resize(self, callable, ret_widget_values=[], block_signal = False):
+        """JS_ARGS: types_1.WindowEvents.resize, [size, { left: left, top: top, height: height, width: width }, resizeConfig]);"""
+        pass
+
+
+
+if __name__=="__main__":
+    layout = Layout()
+    layout.afterAdd({})
