@@ -52,14 +52,14 @@ def entrypoint(template: str = "main"):
     return upd_template
 
 @app.post("/initmodule", response_class=JSONResponse)
-def initmodule(uid: str, location: str, utcoffset: str):
+def initmodule(session_id: str, location: str, utcoffset: str):
     module = location.split("/")[-1]
-    global_cache[uid] = import_module(module)
-    mainwindow = global_cache[uid].module("mainwindow", None)
+    mainmodule = import_module(module).module
+    mainwindow = mainmodule("mainwindow", None, session_id=session_id)
     mainwindow.init_main()
-    
-    response = spooler.get_spool()
+    response = spooler.get_spool(session_id)
     print(response)
+    print(spooler.GLOBAL_SESSIONS)
     return jsonable_encoder(response)
 
 @app.get("/runfunction", response_class=JSONResponse)

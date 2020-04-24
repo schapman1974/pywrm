@@ -2,8 +2,9 @@ import json
 from .raw_widgets_dhx import Layout as dhx_raw_layout
 
 class Layout:
-    def __init__(self, layout_id, html="", height="100vh", resizable=False):
-        self._raw_layout = dhx_raw_layout()
+    def __init__(self, layout_id, session_id, parent, html="", height="100vh", resizable=False):
+        self._raw_layout = dhx_raw_layout(parent, session_id)
+        self.session_id = session_id
         self.content_top_id = layout_id
         self.content_top_html = html
         

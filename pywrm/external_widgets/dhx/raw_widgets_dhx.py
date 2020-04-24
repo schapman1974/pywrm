@@ -1,10 +1,12 @@
 from uuid import uuid4
 from typing import AnyStr, Callable
 from functools import singledispatch, update_wrapper
+
 from decorators.decorators import (function_wrapper,
                                    event_wrapper,
                                    init_wrapper,
                                    return_wrapper)
+from pywrm_spool import spooler
 
 
 def overloadmethod(func):
@@ -16,7 +18,7 @@ def overloadmethod(func):
     return wrapper
 
 class Calendar:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "beforeChange": 3,
@@ -97,7 +99,7 @@ class Calendar:
 
 
 class Chart:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "chartMouseLeave": 0,
@@ -154,7 +156,7 @@ class Chart:
 
 
 class Colorpicker:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "apply": 0,
@@ -243,7 +245,7 @@ class Colorpicker:
 
 
 class Combobox:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "afterClose": 0,
@@ -326,7 +328,7 @@ class Combobox:
 
 
 class DataView:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "afterEditEnd": 2,
@@ -427,7 +429,7 @@ class DataView:
 
 
 class Form:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "afterSend": 0,
@@ -524,7 +526,7 @@ class Form:
 
 
 class Grid:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "afterEditEnd": 3,
@@ -791,8 +793,12 @@ class Grid:
 
 
 class Layout:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = "L"+str(uuid4()).replace("-", "")
+        self.session_id = session_id
+        self.parent = parent
+        self.type = "Layout"
+        spooler.add_widget(self.session_id, self._unique_id, self)
         self._event_param_qty = {
             "afterAdd": 1,
             "afterCollapse": 1,
@@ -938,7 +944,7 @@ class Layout:
 
 
 class List:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "afterEditEnd": 2,
@@ -1035,7 +1041,7 @@ class List:
 
 
 class Menu:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
         }
@@ -1050,7 +1056,7 @@ class Menu:
 
 
 class Popup:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "afterHide": 1,
@@ -1127,7 +1133,7 @@ class Popup:
 
 
 class Ribbon:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
         }
@@ -1146,7 +1152,7 @@ class Ribbon:
 
 
 class Sidebar:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "afterCollapse": 0,
@@ -1197,7 +1203,7 @@ class Sidebar:
 
 
 class Slider:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "change": 3,
@@ -1254,7 +1260,7 @@ class Slider:
 
 
 class Tabbar:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "afterClose": 1,
@@ -1327,7 +1333,7 @@ class Tabbar:
 
 
 class Timepicker:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "afterClose": 0,
@@ -1388,7 +1394,7 @@ class Timepicker:
 
 
 class Toolbar:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
         }
@@ -1407,7 +1413,7 @@ class Toolbar:
 
 
 class Tree:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "afterCollapse": 1,
@@ -1532,7 +1538,7 @@ class Tree:
 
 
 class Window:
-    def __init__(self):
+    def __init__(self, parent, session_id):
         self._unique_id = str(uuid4())
         self._event_param_qty = {
             "afterHide": 0,

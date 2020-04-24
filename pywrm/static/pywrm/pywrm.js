@@ -15,7 +15,7 @@ function addsignal(){
 
 function initmodule(){
     var offset = (new Date()).getTimezoneOffset()/60
-    sendHttpPost("/initmodule"+document.location.search+"?uid="+window.name+"&location="+document.location.href+"&utcoffset="+offset.toString());
+    sendHttpPost("/initmodule"+document.location.search+"?session_id="+window.name+"&location="+document.location.href+"&utcoffset="+offset.toString());
 }
 
 function sendHttpPost(str_url) {

@@ -13,7 +13,7 @@ def function_wrapper(func):
         ret = func(self, *args, **kwargs)
         operation = [function_name, self._unique_id] + list(args)
         print(operation)
-        spooler.add_item(operation)
+        spooler.add_item(self.session_id, operation)
         #TODO Pass the operation off to the spool to be processed
         return ret
     return wrapper
@@ -29,7 +29,7 @@ def event_wrapper(func):
                      function_name] + kwargs.get("ret_widget_values", [])
         self.event_callable[function_name] = args[0]
         print(operation)
-        spooler.add_item(operation)
+        spooler.add_item(self.session_id, operation)
         #TODO Pass the operation off to the spool to be processed
         return ret
     return wrapper
@@ -54,7 +54,7 @@ def init_wrapper(func):
         #                                    config=json.dumps(args[0]))
         operation = ["init_widget", self._unique_id] + list(args)
         print(operation)
-        spooler.add_item(operation)
+        spooler.add_item(self.session_id, operation)
         #TODO Pass the operation off to the spool to be processed
         return ret
     return wrapper
