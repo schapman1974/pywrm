@@ -792,7 +792,7 @@ class Grid:
 
 class Layout:
     def __init__(self):
-        self._unique_id = str(uuid4())
+        self._unique_id = "L"+str(uuid4()).replace("-", "")
         self._event_param_qty = {
             "afterAdd": 1,
             "afterCollapse": 1,
@@ -812,7 +812,7 @@ class Layout:
         }
         self._resizable = False
         self.event_callable = {}
-        self.js_init_call = 'var layout = new dhx.Layout("{unique_id}", {config}'
+        self.js_init_call = 'window["{unique_id}"] = new dhx.Layout("{unique_id}", {config})'
 
     @init_wrapper
     def initLayout(self, config):
