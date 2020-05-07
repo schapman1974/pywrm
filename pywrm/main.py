@@ -12,8 +12,8 @@ from pywrm_spool import spooler
 
 uvicorn.run(
     main.app,
-    host="localhost", 
-    port=8080, 
+    host="0.0.0.0", 
+    port=8090, 
     log_level="debug",
     access_log="access.log",
     reload=False

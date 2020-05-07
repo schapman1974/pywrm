@@ -31,4 +31,6 @@ WORKDIR /PyWRM
 
 RUN ls -ltr static
 
+EXPOSE 8090
+
 ENTRYPOINT ["python", "main.py"]
