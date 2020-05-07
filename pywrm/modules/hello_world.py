@@ -4,7 +4,7 @@ from pywrm_widgets.layout import Layout, PanelType, Panel
 
 
 class module(Layout):
-    widget_set = "dhx"
+    widget_set = "w2ui"
 
     def build_ui(self):
         """ Build user interface"""
