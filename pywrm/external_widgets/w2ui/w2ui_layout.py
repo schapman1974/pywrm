@@ -20,6 +20,10 @@ class Layout:
         self.on_panel_resize_callable = None
         self.before_panel_resize_callable = None
         style = "background-color:white;padding:0px;color:rgba(0,0,0,0.7);font-family:Roboto, Arial, Tahoma, Verdana, sans-serif;font-weight:400;font-size:14px;line-height:20px;"
+        self.border_top = "border-top:1px solid #e4e4e4;"
+        self.border_bottom = "border-bottom:1px solid #e4e4e4;"
+        self.border_left = "border-left:1px solid #e4e4e4;"
+        self.border_right = "border-right:1px solid #e4e4e4;"
         self.panel_type_info = {
             "content_top":{
                 "panel_default_type": "main",
@@ -29,31 +33,31 @@ class Layout:
             },
             "bottom_footer": {
                 "panel_default_type": "bottom",
-                "panel_default_style": style+"border-top:1px solid #e4e4e4",
+                "panel_default_style": style+self.border_top,
                 "panel_default_size": "15%",
                 "panel_default_resizable": False,
             },
             "content_bottom": {
                 "panel_default_type": "preview",
-                "panel_default_style": style+"border-top:1px solid #e4e4e4",
+                "panel_default_style": style+self.border_top,
                 "panel_default_size": "15%",
                 "panel_default_resizable": False,
             },
             "left_side": {
                 "panel_default_type": "left",
-                "panel_default_style": style+"border-right:1px solid #e4e4e4",
+                "panel_default_style": style+self.border_right,
                 "panel_default_size": "10%",
                 "panel_default_resizable": False,
             },
             "right_side": {
                 "panel_default_type": "right",
-                "panel_default_style": style+"border-left:1px solid #e4e4e4",
+                "panel_default_style": style+self.border_left,
                 "panel_default_size": "10%",
                 "panel_default_resizable": False,
             },
             "top_header": {
                 "panel_default_type": "top",
-                "panel_default_style": style+"border-bottom:1px solid #e4e4e4",
+                "panel_default_style": style+self.border_bottom,
                 "panel_default_size": "10%",
                 "panel_default_resizable": False,
             },
@@ -71,6 +75,14 @@ class Layout:
                 self.bottom_footer
             ]
         }
+        if not self.content_bottom and not self.content_top:
+            if not self.left_side and not self.right_side:
+                config_row_num = 1 if self.top_header else 0
+                
+            else:
+                config_row = config["rows"][1] if self.top_header else config["rows"][0]
+                rem_col = 1 if self.left_side else 0
+                del config_row["cols"][rem_col]
         panel_cleanup = []
         for apanel in self.config["panels"]:
             if apanel:
