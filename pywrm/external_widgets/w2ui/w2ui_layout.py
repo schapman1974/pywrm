@@ -75,14 +75,14 @@ class Layout:
                 self.bottom_footer
             ]
         }
-        if not self.content_bottom and not self.content_top:
-            if not self.left_side and not self.right_side:
-                config_row_num = 1 if self.top_header else 0
+        # if not self.content_bottom and not self.content_top:
+        #     if not self.left_side and not self.right_side:
+        #         config_row_num = 1 if self.top_header else 0
                 
-            else:
-                config_row = config["rows"][1] if self.top_header else config["rows"][0]
-                rem_col = 1 if self.left_side else 0
-                del config_row["cols"][rem_col]
+        #     else:
+        #         config_row = config["rows"][1] if self.top_header else config["rows"][0]
+        #         rem_col = 1 if self.left_side else 0
+        #         del config_row["cols"][rem_col]
         panel_cleanup = []
         for apanel in self.config["panels"]:
             if apanel:
