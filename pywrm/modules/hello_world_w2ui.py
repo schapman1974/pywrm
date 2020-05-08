@@ -48,9 +48,9 @@ class module(Layout):
     def init_main(self):
         """ Init main is a subclassed function run during startup of application"""
         self.build_ui()
-        #self.layout3.on_panel_hide(self.panel_hidden)
-        #self.l3right.hide()
-        #self.layout3.on_panel_show(self.panel_shown)
+        self.layout3.on_panel_hide(self.panel_hidden)
+        self.l3right.hide()
+        self.layout3.on_panel_show(self.panel_shown)
 
     def panel_shown(self, panel_id):
         """Triggered when the on panel show event happens"""

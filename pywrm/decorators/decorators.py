@@ -1,13 +1,14 @@
-from base64 import b64decode
+"""
+Decorators functions for pywrm
+"""
 import functools
-import inspect
-import json
 
 from pywrm_spool import spooler
 
 
 def function_wrapper(function_type="function", blocking=False):
     """wrapper for functions that passes the operation to the spool non-blocking"""
+    #TODO implement blocking functions
     def inner_function(func):
         @functools.wraps(func)
         def wrapper(self, *args, **kwargs):
@@ -17,7 +18,7 @@ def function_wrapper(function_type="function", blocking=False):
             if function_type == "cell_function":
                 cell_id = args[0]
                 args = args[1:]
-            operation={
+            operation = {
                 "type": function_type,
                 "widget_id": self._unique_id,
                 "widget_type": self.widget_type,
@@ -58,12 +59,7 @@ def return_wrapper(func):
     @functools.wraps(func)
     def wrapper(self, *args, **kwargs):
         ret = func(self, *args, **kwargs)
-        arguments = []
-        for arg in args:
-            arguments.append(b64decode(arg).decode())
-            print(function_name)
-            print(self.event_callable)
-        self.event_callable[function_name.replace("_return", "")](*arguments)
+        self.event_callable[function_name.replace("_return", "")](*args)
         return ret
     return wrapper
 
@@ -73,7 +69,7 @@ def init_wrapper(func):
     def wrapper(self, *args, **kwargs):
         ret = func(self, *args, **kwargs)
         operation = ["init_widget", self._unique_id, self.widget_type] + list(args)
-        operation={
+        operation = {
             "type":"init_widget",
             "widget_id": self._unique_id,
             "widget_type": self.widget_type,
@@ -86,7 +82,7 @@ def init_wrapper(func):
     return wrapper
 
 def spool_wrapper(session_id):
-    print("SESSIONID", session_id)
+    """wrapper to handle telling the spool that the function is complete"""
     def inner_function(func):
         """ Wrapper for spool functions to deal with completion of spool """
         @functools.wraps(func)

@@ -143,7 +143,7 @@ class Layout(W2UIBase):
         pass
 
     @return_wrapper
-    def onContent_return(self, panel_id, *args, **kwargs):
+    def onContent_return(self, event, *args, **kwargs):
         pass
     
     @event_wrapper
@@ -151,7 +151,7 @@ class Layout(W2UIBase):
         pass
 
     @return_wrapper
-    def onHide_return(self, panel_id, *args, **kwargs):
+    def onHide_return(self, event, *args, **kwargs):
         pass
 
     @event_wrapper
@@ -159,7 +159,7 @@ class Layout(W2UIBase):
         pass
 
     @return_wrapper
-    def onResizerClick_return(self, panel_id, *args, **kwargs):
+    def onResizerClick_return(self, event, *args, **kwargs):
         pass
 
     @event_wrapper
@@ -167,7 +167,7 @@ class Layout(W2UIBase):
         pass
 
     @return_wrapper
-    def onResizing_return(self, panel_id, *args, **kwargs):
+    def onResizing_return(self, event, *args, **kwargs):
         pass
 
     @event_wrapper
@@ -175,7 +175,7 @@ class Layout(W2UIBase):
         pass
 
     @return_wrapper
-    def onShow_return(self, panel_id, *args, **kwargs):
+    def onShow_return(self, event, *args, **kwargs):
         pass
 
     @event_wrapper
@@ -183,7 +183,7 @@ class Layout(W2UIBase):
         pass
 
     @return_wrapper
-    def onDestroy_return(self, panel_id, *args, **kwargs):
+    def onDestroy_return(self, event, *args, **kwargs):
         pass
 
     @event_wrapper
@@ -191,7 +191,7 @@ class Layout(W2UIBase):
         pass
 
     @return_wrapper
-    def onRefresh_return(self, panel_id, *args, **kwargs):
+    def onRefresh_return(self, event, *args, **kwargs):
         pass
 
     @event_wrapper
@@ -199,7 +199,7 @@ class Layout(W2UIBase):
         pass
 
     @return_wrapper
-    def onRender_return(self, panel_id, *args, **kwargs):
+    def onRender_return(self, event, *args, **kwargs):
         pass
 
     @event_wrapper
@@ -207,5 +207,5 @@ class Layout(W2UIBase):
         pass
 
     @return_wrapper
-    def onResize_return(self, panel_id, *args, **kwargs):
+    def onResize_return(self, event, *args, **kwargs):
         pass

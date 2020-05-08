@@ -1,10 +1,13 @@
-import copy
+"""
+PyWRM Layout Widget implementation
+"""
 
 from external_widgets.dhx.dhx_layout import Layout as dhx_layout
 from external_widgets.w2ui.w2ui_layout import Layout as w2ui_layout
 
 
 class Panel:
+    """ Panel object for placement into a Layout Widget"""
     def __init__(self, panel_type, panel_id, **kwargs):
         self.panel_type = panel_type
         self.panel_id = panel_id
@@ -18,12 +21,13 @@ class Panel:
         }
 
     def build_defaults(self, parent):
+        """Apply panel defaults to configuration"""
         self.parent = parent
-        self.panel_type_info = self.parent._base_layout.panel_type_info[self.panel_type]
-        panel_defaults = {k.replace("panel_default_", ""):v 
-                          for k,v in self.panel_type_info.items() 
+        self.panel_type_info = self.parent.base_widget.panel_type_info[self.panel_type]
+        panel_defaults = {k.replace("panel_default_", ""):v
+                          for k, v in self.panel_type_info.items()
                           if "panel_default_" in k}
-        
+
         # config should update panel_defaults so user values take precedence
         panel_defaults.update(self.config)
         self.config = panel_defaults
@@ -33,31 +37,38 @@ class Panel:
         self.parent.attach_widget(widget, self)
 
     def collapse(self):
+        """collapse a panel"""
         self.parent.collapse(self)
 
     def expand(self):
+        """expand a panel"""
         self.parent.expand(self)
 
     def hide(self):
+        """hide a panel"""
         self.parent.hide(self)
 
     def show(self):
+        """show a panel"""
         self.parent.show(self)
 
     def toggle(self):
+        """toggle hide / show of a panel"""
         self.parent.toggle(self)
 
     @property
     def style(self) -> str:
+        """get the name of a CSS class(es) applied to Layout"""
         return self.config.get("css", "")
 
     @style.setter
     def style(self, value: str):
-        """the name of a CSS class(es) applied to Layout"""
+        """set the name of a CSS class(es) applied to Layout"""
         self.config["css"] = value
 
     @property
     def title_text(self) -> str:
+        """gets a header with text for a cell"""
         return self.config.get("header", "")
 
     @title_text.setter
@@ -67,6 +78,7 @@ class Panel:
 
     @property
     def height(self) -> str:
+        """gets the height of a cell depending on the panel type"""
         return self.config.get("height", "")
 
     @height.setter
@@ -76,6 +88,7 @@ class Panel:
 
     @property
     def width(self) -> str:
+        """gets the width of a cell depending on the panel type"""
         return self.config.get("width", "")
 
     @width.setter
@@ -85,6 +98,7 @@ class Panel:
 
     @property
     def hidden(self):
+        """gets whether a cell is hidden"""
         return self.config.get("hidden", False)
 
     @hidden.setter
@@ -94,6 +108,7 @@ class Panel:
 
     @property
     def html(self):
+        """gets HTML content for a cell"""
         return self.config.get("html", "")
 
     @html.setter
@@ -103,6 +118,7 @@ class Panel:
 
     @property
     def resizable(self):
+        """gets whether a cell can be resized"""
         return self.config.get("resizable", False)
 
     @resizable.setter
@@ -112,6 +128,7 @@ class Panel:
 
 
 class PanelType:
+    """Panel Types"""
     content_top = "content_top"
     top_header = "top_header"
     bottom_footer = "bottom_footer"
@@ -121,6 +138,7 @@ class PanelType:
 
 
 class Layout:
+    """Layout widget implementation"""
     widget_set = None
 
     def __init__(self, layout_id, parent=None, session_id=""):
@@ -146,7 +164,13 @@ class Layout:
         self.on_panel_resize_callable = None
         self.before_panel_resize_callable = None
 
+    @property
+    def base_widget(self):
+        """Returns protected base layout class"""
+        return self._base_layout
+
     def init_widget(self):
+        """Initialize the widget for the first time"""
         self._base_layout.init_layout(self._has_panel, self.name)
 
     def add_panels(self, *panels):
@@ -159,56 +183,72 @@ class Layout:
             self._has_panel = True
 
     def hide(self, panel):
+        """Hide a panel"""
         self._base_layout.hide_panel(panel.panel_id)
 
     def repaint(self):
+        """Repaint the layout"""
         self._base_layout.repaint()
 
     def show(self, panel):
+        """Show a panel"""
         self._base_layout.show_panel(panel.panel_id)
 
     def toggle(self, panel):
+        """Toggle show hide of a panel"""
         self._base_layout.top_header(panel.panel_id)
 
-    def on_panel_hide(self, callable, ret_widget_values=[], block_signal = False):
-        ret_id_list = [widget._unique_id for widget in ret_widget_values]
+    def on_panel_hide(self, callable, ret_widget_values=None, block_signal=False):
+        """Panel hide event hook"""
+        #TODO implement ret_widget_values
+        ret_id_list = []
         self.on_panel_hide_callable = callable
         self._base_layout.on_panel_hide(self.on_panel_hide_return, ret_id_list, block_signal)
 
     def on_panel_hide_return(self, panel_id):
+        """Panel hide event return"""
         self.on_panel_hide_callable(panel_id)
 
-    def on_panel_show(self, callable, ret_widget_values=[], block_signal = False):
-        ret_id_list = [widget._unique_id for widget in ret_widget_values]
+    def on_panel_show(self, callable, ret_widget_values=None, block_signal=False):
+        """Panel show event hook"""
+        #TODO implement ret_widget_values
+        ret_id_list = []
         self.on_panel_show_callable = callable
         self._base_layout.on_panel_show(self.on_panel_show_return, ret_id_list, block_signal)
 
     def on_panel_show_return(self, panel_id):
+        """Panel show event return"""
         self.on_panel_show_callable(panel_id)
 
-    def on_panel_resize(self, callable, ret_widget_values=[], block_signal = False):
-        ret_id_list = [widget._unique_id for widget in ret_widget_values]
+    def on_panel_resize(self, callable, ret_widget_values=None, block_signal=False):
+        """Panel resize event hook"""
+        #TODO implement ret_widget_values
+        ret_id_list = []
         self.on_panel_resize_callable = callable
         self._base_layout.on_panel_resize(self.on_panel_resize_return, ret_id_list, block_signal)
 
     def on_panel_resize_return(self, panel_id):
+        """Panel resize event return"""
         self.on_panel_resize_callable(panel_id)
 
-    def before_panel_resize(self, callable, ret_widget_values=[], block_signal = False):
-        ret_id_list = [widget._unique_id for widget in ret_widget_values]
+    def before_panel_resize(self, callable, ret_widget_values=None, block_signal=False):
+        """Panel before resize event hook"""
+        #TODO implement ret_widget_values
+        ret_id_list = []
         self.before_panel_resize_callable = callable
-        self._base_layout.before_panel_resize(self.before_panel_resize_return, ret_id_list, block_signal)
+        self._base_layout.before_panel_resize(
+            self.before_panel_resize_return,
+            ret_id_list,
+            block_signal
+        )
 
     def before_panel_resize_return(self, panel_id):
+        """Panel before resize event return"""
         self.before_panel_resize_callable(panel_id)
 
     def attach_widget(self, widget, panel=None):
-        uid = widget._base_layout._raw_layout._unique_id
+        """Attach a widget to the layout on a specific panel"""
+        uid = widget.base_widget._raw_layout._unique_id
         panel_id = panel.panel_id if panel else None
-        config = widget._base_layout._build_config()
-        self._base_layout.attach_widget(uid, panel_id or self.name, config)
-
-
-        
-        
-
+        config = widget.base_widget._build_config()
+        self.base_widget.attach_widget(uid, panel_id or self.name, config)

@@ -1,13 +1,19 @@
+"""
+DHX Layout Widget Implementation
+"""
+
 import json
 from .raw_widgets_dhx import Layout as dhx_raw_layout
 
 
 class Layout:
+    """ DHX Layout class"""
     def __init__(self, layout_id, session_id, parent):
         self._raw_layout = dhx_raw_layout(parent, session_id)
         self.name = layout_id
         self.session_id = session_id
-        
+        self.config = None
+
         # set empty settings for panels
         self.content_top = {}
         self.top_header = {}
@@ -89,30 +95,32 @@ class Layout:
         return config
 
     def _build_config(self):
+        """Build the panel config for the layout"""
         config = {
-			"css": "dhx_layout-cell",
-			"rows": [
-				self.top_header,
-				{
-					"cols": [
-						self.left_side,
-						{
+            "css": "dhx_layout-cell",
+            "rows": [
+                self.top_header,
+                {
+                    "cols": [
+                        self.left_side,
+                        {
                             "rows": [self.content_top,
                                      self.content_bottom,
                                     ]
-						},
-						self.right_side,
-					]
-				},
+                        },
+                        self.right_side,
+                    ]
+                },
                 self.bottom_footer
-			]
-		}
+            ]
+        }
 
         self.config = self._config_cleanup(config)
         return config
 
 
     def init_layout(self, has_panel, layout_name):
+        """Initialize the layout to be displayed"""
         if not has_panel:
             self.content_top = {
                 "id": layout_name,
@@ -127,83 +135,110 @@ class Layout:
         self._raw_layout.initLayout(self.config)
 
     def attach_widget(self, widget_id, panel_id, config):
+        """Attach a widget to a panel in the layout"""
         self._build_config()
         self._raw_layout.attach(
             cell_id=panel_id,
             widget_id=widget_id,
             config=config
-    )
+        )
 
     def repaint(self):
+        """Repaint the layout on the screen"""
         self._raw_layout.paint()
 
     def hide_panel(self, panel):
+        """Hide a panel on the layout"""
         self._raw_layout.hide(panel)
 
     def show_panel(self, panel):
+        """Show a hidden panel on the layout"""
         self._raw_layout.show(panel)
 
     def toggle_panel(self, panel):
+        """Toggle between hiding and showing a layout"""
         self._raw_layout.toggle(panel)
 
     def add_top_header(self, **kwargs):
+        """Add the top header panel to the layout"""
         self.top_header = kwargs
 
     def add_bottom_footer(self, **kwargs):
+        """Add the bottom footer panel to the layout"""
         self.bottom_footer = kwargs
 
     def add_left_side(self, **kwargs):
+        """Add the left side panel to the layout"""
         self.left_side = kwargs
 
     def add_right_side(self, **kwargs):
+        """Add the right side palen to the layout"""
         self.right_side = kwargs
 
     def add_content_top(self, **kwargs):
+        """Add the content top panel to the layout"""
         self.content_top = kwargs
 
     def add_content_bottom(self, **kwargs):
+        """Add the content bottom panel to the layout"""
         self.content_bottom = kwargs
-        
-    def on_panel_hide(self, callable, ret_widget_values=[], block_signal = False):
-        self.on_panel_hide_callable = callable
+
+    def on_panel_hide(self, event_callable, ret_widget_values=None, block_signal=False):
+        """Hook to the panel hide event"""
+        #TODO Implementation of ret_widget_values
+        #TODO Implementation of block_signal?? or removal
+        self.on_panel_hide_callable = event_callable
         self._raw_layout.afterHide(
             self.on_panel_hide_return,
             ret_widget_values=ret_widget_values,
-            block_signal = block_signal
+            block_signal=block_signal
         )
 
     def on_panel_hide_return(self, panel_id):
+        """Panel hide event return"""
         self.on_panel_hide_callable(panel_id)
 
-    def on_panel_show(self, callable, ret_widget_values=[], block_signal = False):
-        self.on_panel_show_callable = callable
+    def on_panel_show(self, event_callable, ret_widget_values=None, block_signal=False):
+        """Hook to the panel show event"""
+        #TODO Implementation of ret_widget_values
+        #TODO Implementation of block_signal?? or removal
+        self.on_panel_show_callable = event_callable
         self._raw_layout.afterShow(
             self.on_panel_show_return,
             ret_widget_values=ret_widget_values,
-            block_signal = block_signal
+            block_signal=block_signal
         )
 
     def on_panel_show_return(self, panel_id):
+        """Panel show event return"""
         self.on_panel_show_callable(panel_id)
 
-    def on_panel_resize(self, callable, ret_widget_values=[], block_signal = False):
-        self.on_resize_callable = callable
+    def on_panel_resize(self, event_callable, ret_widget_values=None, block_signal=False):
+        """Hook to the panel resize event"""
+        #TODO Implementation of ret_widget_values
+        #TODO Implementation of block_signal?? or removal
+        self.on_panel_resize_callable = event_callable
         self._raw_layout.resize(
             self.on_panel_resize_return,
             ret_widget_values=ret_widget_values,
-            block_signal = block_signal
+            block_signal=block_signal
         )
 
     def on_panel_resize_return(self, panel_id):
+        """Panel resize event return"""
         self.on_panel_resize_callable(panel_id)
 
-    def before_panel_resize(self, callable, ret_widget_values=[], block_signal = False):
-        self.before_panel_resize_callable = callable
+    def before_panel_resize(self, event_callable, ret_widget_values=None, block_signal=False):
+        """Hook to the Before panel resize event"""
+        #TODO Implementation of ret_widget_values
+        #TODO Implementation of block_signal?? or removal
+        self.before_panel_resize_callable = event_callable
         self._raw_layout.beforeResizeStart(
             self.before_panel_resize_return,
             ret_widget_values=ret_widget_values,
-            block_signal = block_signal
+            block_signal=block_signal
         )
 
     def before_panel_resize_return(self, panel_id):
+        """Before Panel resize event return"""
         self.before_panel_resize_callable(panel_id)

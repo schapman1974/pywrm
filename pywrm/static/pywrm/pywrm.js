@@ -6,7 +6,7 @@ function signal_template(...args){
     eventnum = -1;
     retevent = this["event"+parseInt(eventnum)]+"_return";
     var widget = window[this.widgetname];
-    enc_args = btoa(args);
+    enc_args = btoa(JSON.stringify(args));
     sendHttpPost("/runfunction?args="+enc_args+"&session_id="+window.name+"&widget_id="+this.widget_id+"&return_event="+retevent);
 }
 
@@ -67,7 +67,7 @@ function handleresult(response){
             if (widget_set == "dhx"){
                 globalHold[widget_id] = new dhx[widget_type]("maindiv", operation["args"][0]);
             } else if (widget_set == "w2ui"){ 
-                $("#maindiv").w2layout(operation["args"][0]);
+                $("#maindiv")["w2"+widget_type.toLowerCase()](operation["args"][0]);
                 globalHold[widget_id] = w2ui[operation["args"][0]["name"]]
             }
             globalHold[widget_id].widget_id = widget_id;
@@ -77,7 +77,7 @@ function handleresult(response){
                 globalHold[new_widget_id] = new dhx[widget_type](null, operation["kwargs"]["config"]);
                 globalHold[widget_id].cell(operation["kwargs"]["cell_id"]).attach(globalHold[new_widget_id]);
             } else if (widget_set == "w2ui"){
-                $().w2layout(operation["kwargs"]["config"]);
+                $()["w2"+widget_type.toLowerCase()](operation["kwargs"]["config"]);
                 globalHold[new_widget_id] = w2ui[operation["kwargs"]["config"]["name"]];
                 globalHold[widget_id].content(operation["kwargs"]["cell_id"], globalHold[new_widget_id]);
             }
@@ -93,7 +93,12 @@ function handleresult(response){
                 globalHold[widget_id][operation["function_name"]](operation["cell_id"], ...args);
             }
         } else if (operation["type"] == "add_signal"){
-            globalHold[widget_id].events.on(operation["function_name"], window["signal" + parseInt(signalcount)]);
+            if (widget_set == "dhx"){
+                globalHold[widget_id].events.on(operation["function_name"], window["signal" + parseInt(signalcount)]);
+            } else if (widget_set == "w2ui"){
+                var event = operation["function_name"].slice(2, operation["function_name"].length+1).toLowerCase();
+                globalHold[widget_id].on(event, window["signal" + parseInt(signalcount)]);
+            }
             globalHold[widget_id]["event" + parseInt(signalcount)] = operation["function_name"];
             signalcount = signalcount + 1;
         }
