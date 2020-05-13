@@ -2,10 +2,10 @@ from uuid import uuid4
 from typing import AnyStr, Callable
 from functools import singledispatch, update_wrapper
 
-from decorators.decorators import (function_wrapper,
-                                   event_wrapper,
-                                   init_wrapper,
-                                   return_wrapper)
+from pywrm_decorators.decorators import (function_wrapper,
+                                         event_wrapper,
+                                         init_wrapper,
+                                         return_wrapper)
 from pywrm_spool import spooler
 
 
@@ -794,7 +794,7 @@ class Grid:
 
 class Layout:
     widget_set = "dhx"
-    
+
     def __init__(self, parent, session_id):
         self._unique_id = "L"+str(uuid4()).replace("-", "")
         self.session_id = session_id

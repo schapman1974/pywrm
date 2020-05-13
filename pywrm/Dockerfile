@@ -33,8 +33,3 @@ WORKDIR /PyWRM
 EXPOSE 8090
 
 ENTRYPOINT ["python", "main.py"]
-
-#git pull https://github.com/pywrm/pywrm.git
-#cd pywrm/pywrm/
-#docker build -t pywrm .
-#docker run -d -p8090:8090 pywrm

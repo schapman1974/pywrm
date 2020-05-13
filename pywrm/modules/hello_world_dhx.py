@@ -14,8 +14,10 @@ class module(Layout):
         self.content1 = Panel(panel_type=PanelType.content_top, panel_id="content1", html="Content Top")
         self.content2 = Panel(panel_type=PanelType.content_bottom, panel_id="content2", html="Content Bottom")
         self.top1 = Panel(panel_type=PanelType.top_header, panel_id="top1", html="Top")
+        # Example of controling panel parameters from outside the panel
         self.top1.height = "15%"
         self.bottom1 = Panel(panel_type=PanelType.bottom_footer, panel_id="bottom1", html="Bottom")
+        # Example of controling panel parameters from outside the panel
         self.bottom1.height = "15%"
         self.left1 = Panel(panel_type=PanelType.left_side, panel_id="left1", html="Left")
         self.right1 = Panel(panel_type=PanelType.right_side, panel_id="right1", html="Right")
@@ -23,6 +25,7 @@ class module(Layout):
         self.attach_widget(self.layout1)
 
         # add layout2 to content1 panel LAYER 2
+        # Parent of a layout should always be another layout
         self.layout2 = Layout("layout2", parent=self.layout1)
         self.l2top = Panel(panel_type=PanelType.top_header, panel_id="l2top", html="l2Top", height="50%")
         self.l2bottom = Panel(panel_type=PanelType.bottom_footer, panel_id="l2bottom", html="l2Bottom", height="50%", css="")
@@ -42,8 +45,6 @@ class module(Layout):
         self.l4bottom = Panel(panel_type=PanelType.bottom_footer, panel_id="l4bottom", html="l4Bottom", height="50%", css="")
         self.layout4.add_panels(self.l4top, self.l4bottom)
         self.l3right.attach_widget(self.layout4)
-
-        print(self.layout4.parent)
 
     def init_main(self):
         """ Init main is a subclassed function run during startup of application"""

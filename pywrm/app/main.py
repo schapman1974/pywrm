@@ -7,6 +7,7 @@ import json
 import logging
 import os
 import sys
+import time
 import threading
 from uuid import uuid4
 
@@ -18,7 +19,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI
 
-from decorators.decorators import spool_wrapper
+from pywrm_decorators.decorators import spool_wrapper
 from pywrm_spool import spooler
 
 LOGGING = logging.getLogger('main_logger')
@@ -63,15 +64,18 @@ def get_thread_response(session_id, function, args):
     function = spool_wrapper(session_id)(function)
     spool_thread = threading.Thread(target=function, args=args)
     spool_thread.start()
-    thread_id = str(spool_thread.ident)
+    thread_id = spool_thread.ident
     GLOBAL_CACHE["threads"][thread_id] = spool_thread
     response = []
-    while True:
+    for _ in range(0, 1000):
         res = spooler.get_spool_item(session_id, thread_id)
         if res:
             response.append(res)
             if res["type"] in ["blocking_function", "done"]:
                 break
+        time.sleep(0.2)
+    else:
+        raise TimeoutError("Never got done or blocking_function from spool")
     return response
 
 @APP.post("/initmodule", response_class=JSONResponse)
@@ -82,7 +86,7 @@ async def initmodule(session_id: str, location: str, utcoffset: str):
     return jsonable_encoder(response)
 
 @APP.post("/runfunction", response_class=JSONResponse)
-async def runfunction(args, session_id, widget_id, return_event):
+async def runfunction(args: str, session_id: str, widget_id: str, return_event: str):
     """ Run a function for an already initialized session"""
     widget = spooler.get_widget(session_id, widget_id)
     function = getattr(widget, return_event)
@@ -91,7 +95,7 @@ async def runfunction(args, session_id, widget_id, return_event):
     return jsonable_encoder(response)
 
 @APP.post("/returnthread", response_class=JSONResponse)
-def returnthread(args, session_id, thread_id):
+def returnthread(args: str, session_id: str, thread_id: str):
     """ return data from blocking call"""
     spooler.return_thread(session_id, thread_id, args)
 

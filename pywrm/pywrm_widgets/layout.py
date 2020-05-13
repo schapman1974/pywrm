@@ -142,7 +142,7 @@ class Layout:
     widget_set = None
 
     def __init__(self, layout_id, parent=None, session_id=""):
-        widget_set = self.widget_set if self.widget_set else (parent.widget_set if parent else None)
+        widget_set = self.widget_set or (parent.widget_set if parent else None)
         self.parent = parent
         self.session_id = session_id or self.parent.session_id
         self.name = layout_id

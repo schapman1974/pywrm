@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from decorators.decorators import (function_wrapper,
+from pywrm_decorators.decorators import (function_wrapper,
                                    event_wrapper,
                                    init_wrapper,
                                    return_wrapper)

@@ -4,6 +4,15 @@ W2UI Layout Widget Implementation
 
 from .raw_widgets_w2ui import Layout as w2ui_raw_layout
 
+
+def _panel_config_update(config, size_type):
+    if "html" in config:
+        config["content"] = config["html"]
+    if size_type in config:
+        config["size"] = config[size_type]
+    return config
+
+
 class Layout:
     """W2UI Layout class"""
     def __init__(self, layout_id, session_id, parent):
@@ -84,11 +93,11 @@ class Layout:
             ]
         }
 
-        panel_cleanup = []
-        for apanel in self.config["panels"]:
-            if apanel:
-                panel_cleanup.append(apanel)
-        self.config["panels"] = panel_cleanup
+        self.config["panels"] = [
+            panel
+            for panel in self.config["panels"]
+            if panel
+        ]
         return self.config
 
 
@@ -131,63 +140,27 @@ class Layout:
 
     def add_top_header(self, **kwargs):
         """Add the top header panel to the layout"""
-        if "html" in kwargs:
-            kwargs["content"] = kwargs["html"]
-        if "height" in kwargs:
-            kwargs["size"] = kwargs["height"]
-        if "size" in kwargs:
-            kwargs["size"] = kwargs["size"].replace("vh", "%",).replace("vw", "%")
-        self.top_header = kwargs
+        self.top_header = _panel_config_update(kwargs, "height")
 
     def add_bottom_footer(self, **kwargs):
         """Add the bottom footer panel to the layout"""
-        if "html" in kwargs:
-            kwargs["content"] = kwargs["html"]
-        if "height" in kwargs:
-            kwargs["size"] = kwargs["height"]
-        if "size" in kwargs:
-            kwargs["size"] = kwargs["size"].replace("vw", "%",).replace("vw", "%")
-        self.bottom_footer = kwargs
+        self.bottom_footer = _panel_config_update(kwargs, "height")
 
     def add_left_side(self, **kwargs):
         """Add the left side panel to the layout"""
-        if "html" in kwargs:
-            kwargs["content"] = kwargs["html"]
-        if "width" in kwargs:
-            kwargs["size"] = kwargs["width"]
-        if "size" in kwargs:
-            kwargs["size"] = kwargs["size"].replace("vh", "%",).replace("vw", "%")
-        self.left_side = kwargs
+        self.left_side = _panel_config_update(kwargs, "width")
 
     def add_right_side(self, **kwargs):
         """Add the right side palen to the layout"""
-        if "html" in kwargs:
-            kwargs["content"] = kwargs["html"]
-        if "width" in kwargs:
-            kwargs["size"] = kwargs["width"]
-        if "size" in kwargs:
-            kwargs["size"] = kwargs["size"].replace("vh", "%",).replace("vw", "%")
-        self.right_side = kwargs
+        self.right_side = _panel_config_update(kwargs, "width")
 
     def add_content_top(self, **kwargs):
         """Add the content top panel to the layout"""
-        if "html" in kwargs:
-            kwargs["content"] = kwargs["html"]
-        if "height" in kwargs:
-            kwargs["size"] = kwargs["height"]
-        if "size" in kwargs:
-            kwargs["size"] = kwargs["size"].replace("vh", "%",).replace("vw", "%")
-        self.content_top = kwargs
+        self.content_top = _panel_config_update(kwargs, "height")
 
     def add_content_bottom(self, **kwargs):
         """Add the content bottom panel to the layout"""
-        if "html" in kwargs:
-            kwargs["content"] = kwargs["html"]
-        if "height" in kwargs:
-            kwargs["size"] = kwargs["height"]
-        if "size" in kwargs:
-            kwargs["size"] = kwargs["size"].replace("vh", "%",).replace("vw", "%")
-        self.content_bottom = kwargs
+        self.content_bottom = _panel_config_update(kwargs, "height")
 
     def _get_type(self, panel_id):
         for panel_type in self.panel_type_info.keys():
