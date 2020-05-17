@@ -2,7 +2,7 @@
 W2UI Layout Widget Implementation
 """
 
-from .raw_widgets_w2ui import Layout as w2ui_raw_layout
+from .raw_w2ui_layout import Layout as w2ui_raw_layout
 
 
 def _panel_config_update(config, size_type):
@@ -100,18 +100,32 @@ class Layout:
         ]
         return self.config
 
+    @property
+    def raw_widget(self):
+        return self._raw_layout
 
-    def init_layout(self, has_panel, layout_name):
+    @property
+    def _has_panel(self):
+        return (
+            bool(self.content_top) +
+            bool(self.top_header) +
+            bool(self.content_bottom) +
+            bool(self.left_side) +
+            bool(self.right_side) +
+            bool(self.bottom_footer)
+        )
+
+    def init_widget(self):
         """Initialize the layout to be displayed"""
-        if not has_panel:
+        if not self._has_panel:
             self.content_top = {
-                "id": layout_name,
+                "id": self.name,
                 "type": "main",
                 "height": "100%",
                 "resizable": False
             }
         self._build_config()
-        self._raw_layout.initLayout(self.config)
+        self._raw_layout.initLayout(self.config, name=self.name)
 
     def attach_widget(self, widget_id, panel_id, config):
         """Attach a widget to a panel in the layout"""

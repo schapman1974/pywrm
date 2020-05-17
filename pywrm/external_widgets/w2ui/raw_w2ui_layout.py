@@ -6,33 +6,8 @@ from pywrm_decorators.decorators import (function_wrapper,
                                    return_wrapper)
 
 from pywrm_spool import spooler
+from .raw_w2ui_base import W2UIBase
 
-class W2UIBase(object):
-    widget_set = "w2ui"
-
-    @function_wrapper("function")
-    def destroy(self):
-        pass
-
-    @function_wrapper("function")
-    def off(self, otype: str, handler: str = ""):
-        pass
-
-    @function_wrapper("function")
-    def on(self, otype: str, handler: str):
-        pass
-
-    @function_wrapper("function")
-    def refresh(self, id: str = ""):
-        pass
-
-    @function_wrapper("function")
-    def resize(self):
-        pass
-
-    @function_wrapper("function")
-    def trigger(self, event_data):
-        pass
 
 class Layout(W2UIBase):
     widget_set = "w2ui"
@@ -43,30 +18,18 @@ class Layout(W2UIBase):
         self.parent = parent
         self.widget_type = "Layout"
         spooler.add_widget(self.session_id, self._unique_id, self)
-        self._event_param_qty = {
-            "onContent": 1,
-            "onHide": 1,
-            "onResizerClick": 1,
-            "onResizing": 1,
-            "onShow": 1,
-            "onDestroy": 1,
-            "onRefresh": 0,
-            "onRender": 1,
-            "onResize": 1,
-        }
-
         self._resizable = False
         self.event_callable = {}
 
     @init_wrapper
-    def initLayout(self, config):
+    def initLayout(self, config, **kwargs):
         pass
 
     @function_wrapper("function")
     def assignToolbar(self, panel, toolbar):
         pass
 
-    @function_wrapper("function")
+    @function_wrapper("attach")
     def content(self, cell_id, **kwargs):
         pass
 
@@ -176,36 +139,4 @@ class Layout(W2UIBase):
 
     @return_wrapper
     def onShow_return(self, event, *args, **kwargs):
-        pass
-
-    @event_wrapper
-    def onDestroy(self, callable, ret_widget_values=[], block_signal = False):
-        pass
-
-    @return_wrapper
-    def onDestroy_return(self, event, *args, **kwargs):
-        pass
-
-    @event_wrapper
-    def onRefresh(self, callable, ret_widget_values=[], block_signal = False):
-        pass
-
-    @return_wrapper
-    def onRefresh_return(self, event, *args, **kwargs):
-        pass
-
-    @event_wrapper
-    def onRender(self, callable, ret_widget_values=[], block_signal = False):
-        pass
-
-    @return_wrapper
-    def onRender_return(self, event, *args, **kwargs):
-        pass
-
-    @event_wrapper
-    def onResize(self, callable, ret_widget_values=[], block_signal = False):
-        pass
-
-    @return_wrapper
-    def onResize_return(self, event, *args, **kwargs):
         pass

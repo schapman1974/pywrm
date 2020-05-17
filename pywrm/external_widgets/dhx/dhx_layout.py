@@ -3,7 +3,7 @@ DHX Layout Widget Implementation
 """
 
 import json
-from .raw_widgets_dhx import Layout as dhx_raw_layout
+from .raw_dhx_layout import Layout as dhx_raw_layout
 
 
 class Layout:
@@ -118,12 +118,26 @@ class Layout:
         self.config = self._config_cleanup(config)
         return config
 
+    @property
+    def raw_widget(self):
+        return self._raw_layout
 
-    def init_layout(self, has_panel, layout_name):
+    @property
+    def _has_panel(self):
+        return (
+            bool(self.content_top) +
+            bool(self.top_header) +
+            bool(self.content_bottom) +
+            bool(self.left_side) +
+            bool(self.right_side) +
+            bool(self.bottom_footer)
+        )
+
+    def init_widget(self):
         """Initialize the layout to be displayed"""
-        if not has_panel:
+        if not self._has_panel:
             self.content_top = {
-                "id": layout_name,
+                "id": self.name,
                 "css": "",
                 "height": "100vh",
                 "width": "100vw",
@@ -132,7 +146,7 @@ class Layout:
                 "resizable": False
             }
         self._build_config()
-        self._raw_layout.initLayout(self.config)
+        self._raw_layout.initLayout(self.config, name=self.name)
 
     def attach_widget(self, widget_id, panel_id, config):
         """Attach a widget to a panel in the layout"""

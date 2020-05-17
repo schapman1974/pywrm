@@ -18,6 +18,10 @@ def function_wrapper(function_type="function", blocking=False):
             if function_type == "cell_function":
                 cell_id = args[0]
                 args = args[1:]
+            elif function_type == "attach":
+                widget = spooler.get_widget(self.session_id, kwargs["widget_id"])
+                kwargs["widget_type"] = widget.widget_type
+
             operation = {
                 "type": function_type,
                 "widget_id": self._unique_id,
@@ -75,6 +79,7 @@ def init_wrapper(func):
             "widget_type": self.widget_type,
             "function_name": "init_main",
             "args": list(args),
+            "kwargs": kwargs,
             "widget_set": self.widget_set
         }
         spooler.add_item(self.session_id, operation)

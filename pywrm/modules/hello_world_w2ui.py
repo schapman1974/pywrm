@@ -1,6 +1,7 @@
 import os
 
 from pywrm_widgets.layout import Layout, PanelType, Panel
+from pywrm_widgets.toolbar import Toolbar, ToolbarItemType, ToolbarItem
 
 
 class module(Layout):
@@ -23,6 +24,13 @@ class module(Layout):
         self.right1 = Panel(panel_type=PanelType.right_side, panel_id="right1", html="Right")
         self.layout1.add_panels(self.content1, self.top1, self.content2, self.left1, self.right1, self.bottom1)
         self.attach_widget(self.layout1)
+
+        self.toolbar1 = Toolbar("toolbar1", parent=self, style="")
+        self.button1 = ToolbarItem(ToolbarItemType.button, "button1", text="Click Me!")
+        self.break1 = ToolbarItem(ToolbarItemType.seperator, "break1")
+        self.button2 = ToolbarItem(ToolbarItemType.button, "button2", text="Click You!")
+        self.toolbar1.add_toolbar_items(self.button1, self.break1, self.button2)
+        self.top1.attach_widget(self.toolbar1)
 
         # add layout2 to content1 panel LAYER 2
         # Parent of a layout should always be another layout
@@ -49,15 +57,19 @@ class module(Layout):
     def init_main(self):
         """ Init main is a subclassed function run during startup of application"""
         self.build_ui()
+        self.toolbar1.on_click(self.toolbar_clicked)
         self.layout3.on_panel_hide(self.panel_hidden)
         self.l3right.hide()
         self.layout3.on_panel_show(self.panel_shown)
 
+    def toolbar_clicked(self, toolbar_item_id):
+        print(f"toolbar item `{toolbar_item_id}` has been clicked")
+
     def panel_shown(self, panel_id):
         """Triggered when the on panel show event happens"""
-        print(f"panel {panel_id} is shown")
+        print(f"panel `{panel_id}` is shown")
 
     def panel_hidden(self, panel_id):
         """Triggered when the on panel hide event happens"""
-        print(f"panel {panel_id} is hidden")
+        print(f"panel `{panel_id} is hidden")
         self.l3right.show()

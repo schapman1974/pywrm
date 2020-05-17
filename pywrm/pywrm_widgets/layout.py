@@ -146,7 +146,6 @@ class Layout:
         self.parent = parent
         self.session_id = session_id or self.parent.session_id
         self.name = layout_id
-        self._has_panel = False
 
         if widget_set == "dhx":
             self._base_layout = dhx_layout(layout_id, session_id=self.session_id, parent=parent)
@@ -154,6 +153,7 @@ class Layout:
             self._base_layout = w2ui_layout(layout_id, session_id=self.session_id, parent=parent)
         else:
             raise ValueError("Widgetset is not defined")
+
         if self.name == "mainwindow":
             self.init_widget()
         else:
@@ -171,7 +171,7 @@ class Layout:
 
     def init_widget(self):
         """Initialize the widget for the first time"""
-        self._base_layout.init_layout(self._has_panel, self.name)
+        self._base_layout.init_widget()
 
     def add_panels(self, *panels):
         """Add panel to layout top_header, bottom_footer, left_side, right_side, content_bottom"""
@@ -180,7 +180,6 @@ class Layout:
             add_function = getattr(self._base_layout, f"add_{str(apanel.panel_type)}")
             add_function(**apanel.config)
             setattr(self, apanel.panel_id, apanel)
-            self._has_panel = True
 
     def hide(self, panel):
         """Hide a panel"""
@@ -248,7 +247,8 @@ class Layout:
 
     def attach_widget(self, widget, panel=None):
         """Attach a widget to the layout on a specific panel"""
-        uid = widget.base_widget._raw_layout._unique_id
+        uid = widget.base_widget.raw_widget._unique_id
         panel_id = panel.panel_id if panel else None
         config = widget.base_widget._build_config()
+        widget.base_widget.init_widget()
         self.base_widget.attach_widget(uid, panel_id or self.name, config)

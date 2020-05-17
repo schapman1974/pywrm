@@ -66,30 +66,42 @@ function handleresult(response){
         let widget_set = operation["widget_set"];
         // Handle initialization of a widget
         if (operation["type"] == "init_widget") {
+            var main_attach = null;
+            if (operation["kwargs"]["name"] == "mainwindow"){
+                main_attach = "maindiv";
+            }
             if (widget_set == "dhx"){
-                globalHold[widget_id] = new dhx[widget_type]("maindiv", operation["args"][0]);
+                globalHold[widget_id] = new dhx[widget_type](main_attach, operation["args"][0]);
             } else if (widget_set == "w2ui"){ 
-                $("#maindiv")["w2"+widget_type.toLowerCase()](operation["args"][0]);
-                globalHold[widget_id] = w2ui[operation["args"][0]["name"]]
+                if (main_attach != null){
+                    $("#"+main_attach)["w2"+widget_type.toLowerCase()](operation["args"][0]);
+                } else{
+                    $()["w2"+widget_type.toLowerCase()](operation["args"][0]);
+                }
+                globalHold[widget_id] = w2ui[operation["args"][0]["name"]];
             }
             globalHold[widget_id].widget_id = widget_id;
         // Handle Attach function
-        } else if (operation["function_name"] == "attach" || operation["function_name"] == "content"){
+        } else if (operation["type"] == "attach"){
             let new_widget_id = operation["kwargs"]["widget_id"];
             if (widget_set == "dhx"){
-                globalHold[new_widget_id] = new dhx[widget_type](null, operation["kwargs"]["config"]);
                 globalHold[widget_id].cell(operation["kwargs"]["cell_id"]).attach(globalHold[new_widget_id]);
             } else if (widget_set == "w2ui"){
-                $()["w2"+widget_type.toLowerCase()](operation["kwargs"]["config"]);
                 globalHold[new_widget_id] = w2ui[operation["kwargs"]["config"]["name"]];
                 globalHold[widget_id].content(operation["kwargs"]["cell_id"], globalHold[new_widget_id]);
             }
             globalHold[new_widget_id].widget_id = new_widget_id
+        } else if (operation["type"] == "data_function"){
+            let data = operation["args"][0]["items"];
+            globalHold[widget_id].data[operation["function_name"]](data);
+        } else if (operation["type"] == "property"){
+            let value = operation["args"][0];
+            globalHold[widget_id][operation["function_name"]] = value;
         } else if (operation["type"] == "function"){
-            args = operation["args"];
+            let args = operation["args"];
             globalHold[widget_id][operation["function_name"]](...args);
         } else if (operation["type"] == "cell_function"){
-            args = operation["args"];
+            let args = operation["args"];
             if (widget_set == "dhx"){
                 globalHold[widget_id].cell(operation["cell_id"])[operation["function_name"]](...args);
             } else if (widget_set == "w2ui"){
