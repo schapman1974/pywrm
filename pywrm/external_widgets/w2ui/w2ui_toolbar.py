@@ -22,7 +22,7 @@ class Toolbar:
             "type": "type",
             "id": "id",
             "style": "style",
-            "icon": "icon",
+            "icon": "img",
             "text": "text",
             "html": "html",
             "count": "count",

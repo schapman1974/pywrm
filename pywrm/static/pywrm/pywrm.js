@@ -49,6 +49,25 @@ function sendHttpPost(str_url) {
     xmlHttpReq.send();
 }
 
+function w2ui_toolbar_config(config){
+    if (config.hasOwnProperty("items")){
+        let style_rules = [];
+        let items = config["items"];
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].hasOwnProperty("img")){
+                let icon_name = replaceAll(items[i]["img"].split("/").pop(), ".png", "");
+                style_rules.push(".w2ui-icon." + icon_name + "{background: url('" + items[i]["img"] + "');background-size: 32px 32px !important;background-repeat:no-repeat;height:32px !important;width: 32px !important;}");
+                config["items"][i]["img"] = icon_name;
+            }
+        style_rules.push(".w2ui-toolbar table {background-color: #dedede !important;}")
+        let style = '<style type="text/css">' + style_rules.join("\n") + "</style>";
+        $("head").append(style);
+        }
+    }
+    return config;
+}
+
+
 for (let asigloop = 0; asigloop < 100; asigloop++){
     new_funct_string = replaceAll(signal_template.toString(), "signal_template", "signal" + parseInt(asigloop))
     new_funct_string = replaceAll(new_funct_string, "eventnum = -1", "eventnum = " + parseInt(asigloop))+";"
@@ -72,13 +91,22 @@ function handleresult(response){
             }
             if (widget_set == "dhx"){
                 globalHold[widget_id] = new dhx[widget_type](main_attach, operation["args"][0]);
-            } else if (widget_set == "w2ui"){ 
+            } else if (widget_set == "w2ui"){
+                let config = operation["args"][0];
+                if (widget_type.toLowerCase() === "toolbar"){
+                    config = w2ui_toolbar_config(config);
+                }
                 if (main_attach != null){
-                    $("#"+main_attach)["w2"+widget_type.toLowerCase()](operation["args"][0]);
+                    $("#"+main_attach)["w2"+widget_type.toLowerCase()](config);
                 } else{
-                    $()["w2"+widget_type.toLowerCase()](operation["args"][0]);
+                    $()["w2"+widget_type.toLowerCase()](config);
                 }
                 globalHold[widget_id] = w2ui[operation["args"][0]["name"]];
+                //if (operation["widget_type"].toLowerCase() === "toolbar"){
+                //    globalHold[widget_id].on("refresh", function(event) {
+                //        w2ui_toolbar_css(event, widget_id);
+                //    })
+                //}
             }
             globalHold[widget_id].widget_id = widget_id;
         // Handle Attach function
@@ -89,6 +117,7 @@ function handleresult(response){
             } else if (widget_set == "w2ui"){
                 globalHold[new_widget_id] = w2ui[operation["kwargs"]["config"]["name"]];
                 globalHold[widget_id].content(operation["kwargs"]["cell_id"], globalHold[new_widget_id]);
+                //globalHold[new_widget_id].refresh()
             }
             globalHold[new_widget_id].widget_id = new_widget_id
         } else if (operation["type"] == "data_function"){

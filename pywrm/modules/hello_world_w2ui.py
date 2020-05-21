@@ -12,7 +12,7 @@ class module(Layout):
 
         # add layout with content LAYER 1
         self.layout1 = Layout("layout1", parent=self)
-        self.content1 = Panel(panel_type=PanelType.content_top, panel_id="content1", html="Content Top")
+        self.content1 = Panel(panel_type=PanelType.content_top, panel_id="content1", html="Content Top", style="background-color:white;")
         self.content2 = Panel(panel_type=PanelType.content_bottom, panel_id="content2", html="Content Bottom")
         self.top1 = Panel(panel_type=PanelType.top_header, panel_id="top1", html="Top")
         # Example of controling panel parameters from outside the panel
@@ -25,11 +25,15 @@ class module(Layout):
         self.layout1.add_panels(self.content1, self.top1, self.content2, self.left1, self.right1, self.bottom1)
         self.attach_widget(self.layout1)
 
-        self.toolbar1 = Toolbar("toolbar1", parent=self, style="")
-        self.button1 = ToolbarItem(ToolbarItemType.button, "button1", text="Click Me!")
-        self.break1 = ToolbarItem(ToolbarItemType.seperator, "break1")
-        self.button2 = ToolbarItem(ToolbarItemType.button, "button2", text="Click You!")
-        self.toolbar1.add_toolbar_items(self.button1, self.break1, self.button2)
+        self.toolbar1 = Toolbar("toolbar1", parent=self)
+        self.button1 = ToolbarItem(ToolbarItemType.button, "button1", text="Add", icon="/static/icons/GREENCHECK.png", style="height:34px;font-size:11px;")
+        #self.break1 = ToolbarItem(ToolbarItemType.seperator, "break1")
+        self.button2 = ToolbarItem(ToolbarItemType.button, "button2", text="History", icon="/static/icons/HISTORY.png", style="height:34px;font-size:11px;")
+        self.spacer1 = ToolbarItem(ToolbarItemType.spacer, "spacer1")
+        self.button3 = ToolbarItem(ToolbarItemType.button, "button3", text="Totals", icon="/static/icons/TOTALS.png", style="height:34px;font-size:11px;")
+
+        #self.toolbar1.add_toolbar_items(self.button1, self.break1, self.button2)
+        self.toolbar1.add_toolbar_items(self.button1, self.button2, self.spacer1, self.button3)
         self.top1.attach_widget(self.toolbar1)
 
         # add layout2 to content1 panel LAYER 2

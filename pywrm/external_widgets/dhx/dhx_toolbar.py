@@ -54,7 +54,7 @@ class Toolbar:
         self.config = {
             "name": self.name,
             "items": self.items,
-            "style": self.style
+            "css": self.style
         }
         return self.config
 
@@ -65,7 +65,7 @@ class Toolbar:
     def init_widget(self):
         """Initialize the widget for the first time"""
         self._build_config()
-        self._raw_toolbar.initToolbar()
+        self._raw_toolbar.initToolbar(self.config)
         self._raw_toolbar.parse(self.config)
 
     def add_toolbar_items(self, *toolbar_items):
