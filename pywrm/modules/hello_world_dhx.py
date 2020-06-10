@@ -25,7 +25,7 @@ class module(Layout):
         self.layout1.add_panels(self.content1, self.top1, self.content2, self.left1, self.right1, self.bottom1)
         self.attach_widget(self.layout1)
 
-        self.toolbar1 = Toolbar("toolbar1", parent=self, style="dhx_widget--bordered dhx_widget--bg_gray")
+        self.toolbar1 = Toolbar("toolbar1", parent=self)
         self.button1 = ToolbarItem(ToolbarItemType.button, "button1", text="Add", icon="/static/icons/GREENCHECK.png", style="height:34px;font-size:11px;")
         #self.break1 = ToolbarItem(ToolbarItemType.seperator, "break1")
         self.button2 = ToolbarItem(ToolbarItemType.button, "button2", text="History", icon="/static/icons/HISTORY.png", style="height:34px;font-size:11px;")
@@ -68,6 +68,10 @@ class module(Layout):
 
     def toolbar_clicked(self, toolbar_item_id):
         print(f"toolbar item `{toolbar_item_id}` has been clicked")
+        if toolbar_item_id == "button1":
+            self.l3right.hide()
+        elif toolbar_item_id == "button2":
+            self.l3right.show()
 
     def panel_shown(self, panel_id):
         """Triggered when the on panel show event happens"""
@@ -76,4 +80,3 @@ class module(Layout):
     def panel_hidden(self, panel_id):
         """Triggered when the on panel hide event happens"""
         print(f"panel `{panel_id} is hidden")
-        self.l3right.show()

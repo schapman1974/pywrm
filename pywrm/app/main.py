@@ -59,7 +59,7 @@ def mainwindow(session_id, location):
     mainmodule = import_module(module).module
     mainmodule("mainwindow", None, session_id=session_id).init_main()
 
-def get_thread_response(session_id, function, args):
+async def get_thread_response(session_id, function, args):
     """ Create a thread and get the response from a triggered event"""
     function = spool_wrapper(session_id)(function)
     spool_thread = threading.Thread(target=function, args=args)
@@ -68,22 +68,21 @@ def get_thread_response(session_id, function, args):
     GLOBAL_CACHE["threads"][thread_id] = spool_thread
     response = []
     for _ in range(0, 1000):
-        res = spooler.get_spool_item(session_id, thread_id)
+        res = await spooler.get_spool_item(session_id, thread_id)
         if res:
-            response.append(res)
+            yield res
             if res["type"] in ["blocking_function", "done"]:
                 break
         time.sleep(0.2)
     else:
         raise TimeoutError("Never got done or blocking_function from spool")
-    return response
 
 @APP.post("/initmodule", response_class=JSONResponse)
 async def initmodule(session_id: str, location: str, utcoffset: str):
     """ Initialize a module or an application and start a new session"""
     #TODO implement the passing of utcoffset into module during init
     response = get_thread_response(session_id, mainwindow, (session_id, location, ))
-    return jsonable_encoder(response)
+    return jsonable_encoder([ares async for ares in response])
 
 @APP.post("/runfunction", response_class=JSONResponse)
 async def runfunction(args: str, session_id: str, widget_id: str, return_event: str):
@@ -92,7 +91,7 @@ async def runfunction(args: str, session_id: str, widget_id: str, return_event: 
     function = getattr(widget, return_event)
     arguments = json.loads(b64decode(args).decode())
     response = get_thread_response(session_id, function, arguments)
-    return jsonable_encoder(response)
+    return jsonable_encoder([ares async for ares in response])
 
 @APP.post("/returnthread", response_class=JSONResponse)
 def returnthread(args: str, session_id: str, thread_id: str):

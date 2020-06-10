@@ -68,6 +68,10 @@ class module(Layout):
 
     def toolbar_clicked(self, toolbar_item_id):
         print(f"toolbar item `{toolbar_item_id}` has been clicked")
+        if toolbar_item_id == "button1":
+            self.l3right.hide()
+        elif toolbar_item_id == "button2":
+            self.l3right.show()
 
     def panel_shown(self, panel_id):
         """Triggered when the on panel show event happens"""
@@ -76,4 +80,3 @@ class module(Layout):
     def panel_hidden(self, panel_id):
         """Triggered when the on panel hide event happens"""
         print(f"panel `{panel_id} is hidden")
-        self.l3right.show()

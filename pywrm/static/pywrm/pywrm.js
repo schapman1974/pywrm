@@ -59,7 +59,10 @@ function w2ui_toolbar_config(config){
                 style_rules.push(".w2ui-icon." + icon_name + "{background: url('" + items[i]["img"] + "');background-size: 32px 32px !important;background-repeat:no-repeat;height:32px !important;width: 32px !important;}");
                 config["items"][i]["img"] = icon_name;
             }
-        style_rules.push(".w2ui-toolbar table {background-color: #dedede !important;}")
+        style_rules.push(".w2ui-toolbar table tr {background-color: #f7f7f7 !important;border: 1px solid #e4e4e4 !important;}")
+        style_rules.push(".w2ui-reset * {padding: .5px;}")
+        style_rules.push(".w2ui-panel-content div {background-color: white !important;}")
+        style_rules.push(".w2ui-scroll-wrapper div {background-color: #f7f7f7 !important;}")
         let style = '<style type="text/css">' + style_rules.join("\n") + "</style>";
         $("head").append(style);
         }

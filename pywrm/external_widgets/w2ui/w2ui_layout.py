@@ -142,15 +142,15 @@ class Layout:
 
     def hide_panel(self, panel):
         """Hide a panel on the layout"""
-        self._raw_layout.hide(panel)
+        self._raw_layout.hide(self._get_type(panel), True)
 
     def show_panel(self, panel):
         """Show a hidden panel on the layout"""
-        self._raw_layout.show(panel)
+        self._raw_layout.show(self._get_type(panel), True)
 
     def toggle_panel(self, panel):
         """Toggle between hiding and showing a layout"""
-        self._raw_layout.toggle(panel)
+        self._raw_layout.toggle(self._get_type(panel))
 
     def add_top_header(self, **kwargs):
         """Add the top header panel to the layout"""

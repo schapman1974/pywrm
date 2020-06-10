@@ -22,7 +22,7 @@ class Toolbar:
             "type": "type",
             "id": "id",
             "style": "css",
-            "icon": "icon",
+            "icon": "src",
             "text": "value",
             "html": "html",
             "count": "count",
@@ -71,6 +71,8 @@ class Toolbar:
     def add_toolbar_items(self, *toolbar_items):
         """Add toolbar items to toolbar"""
         self.items += [self._map_item(item) for item in toolbar_items]
+        print("ADDED", toolbar_items)
+        print(self.items)
 
     def destroy(self):
         """Destroy the toolbar"""
